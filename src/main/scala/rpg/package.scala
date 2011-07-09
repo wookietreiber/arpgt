@@ -38,6 +38,8 @@ package object rpg {
 
 	val EventHandler = akka.event.EventHandler
 
+	type Receive = Actor.Receive
+
 	// ----------------------------------------------------------------------
 	// common dice
 	// ----------------------------------------------------------------------
