@@ -24,29 +24,22 @@
  ****************************************************************************/
 
 
-package object rpg {
+package rpg
 
-	// ----------------------------------------------------------------------
-	// actor aliases
-	// ----------------------------------------------------------------------
+import org.specs2.mutable._
 
-	type Actor = akka.actor.Actor
-	val  Actor = akka.actor.Actor
+class ShakerSpec extends Specification {
+	"a shaker " should {
+		"accept dice and return the random result" in {
+			val shaker = Actor.actorOf[Shaker].start()
 
-	val EventHandler = akka.event.EventHandler
+			val result = shaker !! new Die(scala.util.Random.nextInt(1024) + 2)
 
-	type Receive = Actor.Receive
+			shaker.stop()
 
-	// ----------------------------------------------------------------------
-	// common dice
-	// ----------------------------------------------------------------------
-
-	val D4   = Die(  4)
-	val D6   = Die(  6)
-	val D8   = Die(  8)
-	val D10  = Die( 10)
-	val D12  = Die( 12)
-	val D20  = Die( 20)
-	val D100 = Die(100)
-
+			result should beSome.like {
+				case i: Int => i must be_>=(1) and be_<=(1024)
+			}
+		}
+	}
 }

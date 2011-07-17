@@ -26,35 +26,14 @@
 
 package rpg
 
-import org.specs2.mutable._
+/** An x-sided die.
+	*
+	* Most common dice are already defined as vals in `package object rpg`.
+	*
+	* @param sides sides of the die, has to be greater than or equal to 2
+	*/
+case class Die(sides: Int) {
+	require(sides >= 2, "Too few sides!")
 
-class DiceSpec extends Specification {
-	"dice creation" should {
-		"fail with less than 2 sides" in {
-			new Die( 1 ) must throwAn [IllegalArgumentException]
-			new Die( 0 ) must throwAn [IllegalArgumentException]
-			new Die(-42) must throwAn [IllegalArgumentException]
-		}
-	}
-
-	"dice names" should {
-		"start with 'D'" in {
-			new Die(42).toString must startWith("D")
-		}
-
-		"end with their sides" in {
-			val anInt = 42
-			new Die(anInt).toString must endWith(anInt.toString)
-		}
-	}
-
-	"dice with equal sides" should {
-		"equal one another" in {
-			new Die(42) == new Die(42)
-		}
-
-		"have an equal hash" in {
-			new Die(42).## == new Die(42).##
-		}
-	}
+	override val toString = "D" + sides
 }

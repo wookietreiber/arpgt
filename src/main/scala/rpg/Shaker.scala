@@ -26,10 +26,13 @@
 
 package rpg
 
-/** Dice-shaking actor. */
+/** Dice-shaking actor, encapsulating the (pseudo-) random number generator.
+	*
+	* This actor excepts messages of type [[rpg.Die]].
+	*/
 class Shaker extends Actor {
 	/** Returns the random number generator. */
-	protected val random = new Random
+	protected val random = new scala.util.Random
 
 	// -----------------------------------------------------------------------
 	// message handling
@@ -46,7 +49,6 @@ class Shaker extends Actor {
 	private def genericMessageHandler: Receive = {
 		case die @ Die(sides) =>
 			val result = random.nextInt(sides) + 1
-			// EventHandler.info(self, "D" + sides + ": " + result)
 			self.channel ! result
 
 		case event =>
