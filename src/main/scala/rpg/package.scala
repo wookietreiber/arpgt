@@ -6,7 +6,7 @@
  *                                                                          *
  ****************************************************************************
  *                                                                          *
- *  This file is part of 'rpg-tools'.                                       *
+ *  This file is part of 'arpgt'.                                           *
  *                                                                          *
  *  This project is free software: you can redistribute it and/or modify    *
  *  it under the terms of the GNU General Public License as published by    *
