@@ -11,7 +11,7 @@ resolvers += "Typesafe Repository" at "http://repo.typesafe.com/typesafe/release
 
 libraryDependencies ++= Seq(
 	"se.scalablesolutions.akka" %  "akka-actor" % "1.1.3",
-	"org.specs2"                %% "specs2"     % "1.4"   % "test"
+	"org.specs2"                %% "specs2"     % "1.5"    % "test"
 )
 
 initialCommands := """
