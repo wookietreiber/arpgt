@@ -26,5 +26,6 @@
 
 package rpg
 
+/** Base trait of attributes. */
 trait GenericAttribute {
 }
