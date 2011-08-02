@@ -29,17 +29,17 @@ package rpg
 import org.specs2.mutable._
 
 class ShakerSpec extends Specification {
-	"a shaker " should {
-		"accept dice and return the random result" in {
-			val shaker = Actor.actorOf[Shaker].start()
+  "a shaker " should {
+    "accept dice and return the random result" in {
+      val shaker = Actor.actorOf[Shaker].start()
 
-			val result = shaker !! new Die(scala.util.Random.nextInt(1024) + 2)
+      val result = shaker !! new Die(scala.util.Random.nextInt(1024) + 2)
 
-			shaker.stop()
+      shaker.stop()
 
-			result should beSome.like {
-				case i: Int => i must be_>=(1) and be_<=(1024)
-			}
-		}
-	}
+      result should beSome.like {
+        case i: Int => i must be_>=(1) and be_<=(1024)
+      }
+    }
+  }
 }

@@ -27,13 +27,13 @@
 package rpg
 
 /** An x-sided die.
-	*
-	* Most common dice are already defined as vals in `package object rpg`.
-	*
-	* @param sides sides of the die, has to be greater than or equal to 2
-	*/
+  *
+  * Most common dice are already defined as vals in `package object rpg`.
+  *
+  * @param sides sides of the die, has to be greater than or equal to 2
+  */
 case class Die(sides: Int) {
-	require(sides >= 2, "Too few sides!")
+  require(sides >= 2, "Too few sides!")
 
-	override val toString = "D" + sides
+  override val toString = "D" + sides
 }

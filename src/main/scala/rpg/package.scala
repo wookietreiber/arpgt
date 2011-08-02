@@ -26,27 +26,27 @@
 
 package object rpg {
 
-	// ----------------------------------------------------------------------
-	// actor aliases
-	// ----------------------------------------------------------------------
+  // ----------------------------------------------------------------------
+  // actor aliases
+  // ----------------------------------------------------------------------
 
-	type Actor = akka.actor.Actor
-	val  Actor = akka.actor.Actor
+  type Actor = akka.actor.Actor
+  val  Actor = akka.actor.Actor
 
-	val EventHandler = akka.event.EventHandler
+  val EventHandler = akka.event.EventHandler
 
-	type Receive = Actor.Receive
+  type Receive = Actor.Receive
 
-	// ----------------------------------------------------------------------
-	// common dice
-	// ----------------------------------------------------------------------
+  // ----------------------------------------------------------------------
+  // common dice
+  // ----------------------------------------------------------------------
 
-	val D4   = Die(  4)
-	val D6   = Die(  6)
-	val D8   = Die(  8)
-	val D10  = Die( 10)
-	val D12  = Die( 12)
-	val D20  = Die( 20)
-	val D100 = Die(100)
+  val D4   = Die(  4)
+  val D6   = Die(  6)
+  val D8   = Die(  8)
+  val D10  = Die( 10)
+  val D12  = Die( 12)
+  val D20  = Die( 20)
+  val D100 = Die(100)
 
 }

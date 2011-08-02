@@ -27,31 +27,31 @@
 package rpg
 
 /** Dice-shaking actor, encapsulating the (pseudo-) random number generator.
-	*
-	* This actor excepts messages of type [[rpg.Die]].
-	*/
+  *
+  * This actor excepts messages of type [[rpg.Die]].
+  */
 class Shaker extends Actor {
-	/** Returns the random number generator. */
-	protected val random = new scala.util.Random
+  /** Returns the random number generator. */
+  protected val random = new scala.util.Random
 
-	// -----------------------------------------------------------------------
-	// message handling
-	// -----------------------------------------------------------------------
+  // -----------------------------------------------------------------------
+  // message handling
+  // -----------------------------------------------------------------------
 
-	/** Handling done via `messageHandler orElse genericMessageHandler`. */
-	override final def receive = messageHandler orElse genericMessageHandler
+  /** Handling done via `messageHandler orElse genericMessageHandler`. */
+  override final def receive = messageHandler orElse genericMessageHandler
 
-	/** Defines user specific message handling. */
-	protected def messageHandler: Receive = {
-		case null =>
-	}
+  /** Defines user specific message handling. */
+  protected def messageHandler: Receive = {
+    case null =>
+  }
 
-	private def genericMessageHandler: Receive = {
-		case die @ Die(sides) =>
-			val result = random.nextInt(sides) + 1
-			self.channel ! result
+  private def genericMessageHandler: Receive = {
+    case die @ Die(sides) =>
+      val result = random.nextInt(sides) + 1
+      self.channel ! result
 
-		case event =>
-			EventHandler.warning(self, "Don't know what to do with: " + event)
-	}
+    case event =>
+      EventHandler.warning(self, "Don't know what to do with: " + event)
+  }
 }
