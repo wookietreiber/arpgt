@@ -26,17 +26,29 @@
 
 package rpg
 
-/** Provides attributes. */
-trait Attributes {
-  /** Specialized attribute type. */
-  type Attr <: GenericAttribute
+import org.specs2.mutable._
 
-  /** Returns the value of given attribute. */
-  final def apply(a: Attr) = attributes(a)
+class AttributesSpec extends Specification {
+  val attr = new Attribute
+  implicit val default = 42
 
-  /** Returns the attribute to value map. */
-  protected var attributes = Map[Attr,Int]() withDefault defaultAttributeValues
+  """an "Attributes" implementation""" should {
+    "return the default for unset attributes" in {
+      val impl = new AttributesImpl
+      impl(attr) must_== default
+    }
 
-  /** Returns default attribute values. */
-  protected def defaultAttributeValues: Attr => Int
+    "return non-default values for set attributes" in {
+      val impl = new AttributesImpl
+      impl + (attr, 4)
+      impl(attr) !== default
+    }
+  }
+
+  class Attribute extends GenericAttribute
+  class AttributesImpl(implicit val default: Int) extends Attributes {
+    type Attr = Attribute
+    override lazy val defaultAttributeValues = (a: Attr) => default
+    def +(a: Attr, v: Int) { attributes += (a -> v) }
+  }
 }
