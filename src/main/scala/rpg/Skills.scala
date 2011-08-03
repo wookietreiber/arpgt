@@ -29,14 +29,14 @@ package rpg
 /** Provides skills. */
 trait Skills {
   /** Specialized skill type. */
-  type Skl <: GenericSkill
+  type S <: GenericSkill
 
   /** Returns the value of given skill. */
-  final def apply(s: Skl) = skills(s)
+  final def apply(s: S) = skills(s)
 
   /** Returns the skill to value map. */
-  protected var skills = Map[Skl,Int]() withDefault defaultSkillValues
+  protected var skills = Map[S,Int]() withDefault defaultSkillValues
 
   /** Returns default skill values. */
-  protected def defaultSkillValues: Skl => Int
+  protected def defaultSkillValues: S => Int
 }

@@ -47,8 +47,8 @@ class SkillsSpec extends Specification {
 
   class Skill extends GenericSkill
   class SkillsImpl(implicit val default: Int) extends Skills {
-    type Skl = Skill
-    override lazy val defaultSkillValues = (s: Skl) => default
-    def +(s: Skl, v: Int) { skills += (s -> v) }
+    type S = Skill
+    override lazy val defaultSkillValues = (s: Skill) => default
+    def +(s: Skill, v: Int) { skills += (s -> v) }
   }
 }

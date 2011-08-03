@@ -29,14 +29,14 @@ package rpg
 /** Provides attributes. */
 trait Attributes {
   /** Specialized attribute type. */
-  type Attr <: GenericAttribute
+  type A <: GenericAttribute
 
   /** Returns the value of given attribute. */
-  final def apply(a: Attr) = attributes(a)
+  final def apply(a: A) = attributes(a)
 
   /** Returns the attribute to value map. */
-  protected var attributes = Map[Attr,Int]() withDefault defaultAttributeValues
+  protected var attributes = Map[A,Int]() withDefault defaultAttributeValues
 
   /** Returns default attribute values. */
-  protected def defaultAttributeValues: Attr => Int
+  protected def defaultAttributeValues: A => Int
 }

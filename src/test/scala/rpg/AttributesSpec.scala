@@ -47,8 +47,8 @@ class AttributesSpec extends Specification {
 
   class Attribute extends GenericAttribute
   class AttributesImpl(implicit val default: Int) extends Attributes {
-    type Attr = Attribute
-    override lazy val defaultAttributeValues = (a: Attr) => default
-    def +(a: Attr, v: Int) { attributes += (a -> v) }
+    type A = Attribute
+    override lazy val defaultAttributeValues = (a: Attribute) => default
+    def +(a: Attribute, v: Int) { attributes += (a -> v) }
   }
 }
