@@ -6,7 +6,7 @@
  *                                                                          *
  ****************************************************************************
  *                                                                          *
- *  This file is part of 'echo-tools'.                                      *
+ *  This file is part of 'arpgt'.                                           *
  *                                                                          *
  *  This project is free software: you can redistribute it and/or modify    *
  *  it under the terms of the GNU General Public License as published by    *
@@ -30,13 +30,13 @@ package rpg
 object HitPoints {
   /** Message for hurting.
     *
-    * @param amount must be positive
+    * @param amount has to be positive
     */
   case class Damage(amount: Int) { require(amount > 0) }
 
   /** Message for healing.
     *
-    * @param amount must be positive
+    * @param amount has to be positive
     */
   case class Life(amount: Int) { require(amount > 0) }
 }
