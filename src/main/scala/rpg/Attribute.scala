@@ -26,17 +26,8 @@
 
 package rpg
 
-/** Provides attributes. */
-trait Attributes {
-  /** Specialized attribute type. */
-  type Attribute <: rpg.Attribute
-
-  /** Returns the value of given attribute. */
-  final def apply(a: Attribute) = attributes(a)
-
-  /** Returns the attribute to value map. */
-  protected var attributes = Map[Attribute,Int]() withDefault defaultAttributeValues
-
-  /** Returns default attribute values. */
-  protected def defaultAttributeValues: Attribute => Int
+/** Base trait of attributes. */
+trait Attribute extends Checkable[Int] {
+  /** Returns the name of this attribute. */
+  def name: String
 }

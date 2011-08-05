@@ -6,7 +6,7 @@
  *                                                                          *
  ****************************************************************************
  *                                                                          *
- *  This file is part of 'echo-tools'.                                      *
+ *  This file is part of 'arpgt'.                                           *
  *                                                                          *
  *  This project is free software: you can redistribute it and/or modify    *
  *  it under the terms of the GNU General Public License as published by    *
@@ -29,14 +29,14 @@ package rpg
 /** Provides skills. */
 trait Skills {
   /** Specialized skill type. */
-  type S <: GenericSkill
+  type Skill <: rpg.Skill
 
   /** Returns the value of given skill. */
-  final def apply(s: S) = skills(s)
+  final def apply(s: Skill) = skills(s)
 
   /** Returns the skill to value map. */
-  protected var skills = Map[S,Int]() withDefault defaultSkillValues
+  protected var skills = Map[Skill,Int]() withDefault defaultSkillValues
 
   /** Returns default skill values. */
-  protected def defaultSkillValues: S => Int
+  protected def defaultSkillValues: Skill => Int
 }

@@ -26,17 +26,12 @@
 
 package rpg
 
-/** Provides attributes. */
-trait Attributes {
-  /** Specialized attribute type. */
-  type Attribute <: rpg.Attribute
+/** Base trait of characters. */
+abstract class Character {
+  val attributes: Attributes
+  val hitpoints: HitPoints
+  val skills: Skills
 
-  /** Returns the value of given attribute. */
-  final def apply(a: Attribute) = attributes(a)
-
-  /** Returns the attribute to value map. */
-  protected var attributes = Map[Attribute,Int]() withDefault defaultAttributeValues
-
-  /** Returns default attribute values. */
-  protected def defaultAttributeValues: Attribute => Int
+  def check(a: attributes.Attribute): Result
+  def check(s: skills.Skill): Result
 }

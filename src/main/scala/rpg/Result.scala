@@ -26,6 +26,11 @@
 
 package rpg
 
-/** Base trait of skills. */
-trait GenericSkill {
+abstract class Result {
+//  def vs(lvl: Int): Result
+//  def vs(lvl: Level): Result
+//  def vs(char: Character): Result
+
+//  def under(f: Mod[Int]): Result
+//  def under(c: CircumStance): Result
 }

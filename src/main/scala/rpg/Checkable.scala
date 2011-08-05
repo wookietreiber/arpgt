@@ -26,17 +26,26 @@
 
 package rpg
 
-/** Provides attributes. */
-trait Attributes {
-  /** Specialized attribute type. */
-  type Attribute <: rpg.Attribute
+/** Function returning the results of checking an ability.
+  *
+  * The general rules are as follows: the check of the ability `level` has a
+  * certain `difficulty` (defaults to `level`) and the ability `level` can be
+  * modified, e.g. by bad circumstances like being hurt.
+  *
+  * @tparam A type of the ability level, usually an `Int`
+  */
+trait Checkable[A] extends Function2[A,Mod[A],Result] {
+  /** Returns the level of this checkable. */
+  val level: A
 
-  /** Returns the value of given attribute. */
-  final def apply(a: Attribute) = attributes(a)
+  /** Returns the result of applying this function to `level`.
+    *
+    * @param difficulty opposing level
+    * @param mod modifier for `level`
+    */
+  override def apply(difficulty: A = level, mod: Mod[A] = identity): Result =
+    check(level, difficulty, mod)
 
-  /** Returns the attribute to value map. */
-  protected var attributes = Map[Attribute,Int]() withDefault defaultAttributeValues
-
-  /** Returns default attribute values. */
-  protected def defaultAttributeValues: Attribute => Int
+  /** Returns the result depending on the rules defined by this method. */
+  protected def check(lvl: A, difficulty: A, mod: Mod[A]): Result
 }

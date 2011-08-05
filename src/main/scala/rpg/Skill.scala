@@ -26,6 +26,8 @@
 
 package rpg
 
-/** Base trait of attributes. */
-trait GenericAttribute {
+/** Base trait of skills. */
+trait Skill {
+  /** Returns the name of this $skill. */
+  def name: String
 }
