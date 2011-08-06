@@ -27,7 +27,7 @@
 package rpg
 
 /** Base trait of skills. */
-trait Skill {
-  /** Returns the name of this $skill. */
+trait Skill extends Checkable[Int] {
+  /** Returns the name of this skill. */
   def name: String
 }
