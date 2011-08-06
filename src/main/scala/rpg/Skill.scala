@@ -27,7 +27,7 @@
 package rpg
 
 /** Base trait of skills. */
-trait Skill extends Checkable[Int] with ((Int,Mod[Int],List[Attribute]) => Result) {
+trait Skill extends Checkable[Int] with ((Int,Int,Mod[Int],List[Attribute]) => Result) {
   /** Returns the name of this skill. */
   def name: String
 
@@ -42,16 +42,17 @@ trait Skill extends Checkable[Int] with ((Int,Mod[Int],List[Attribute]) => Resul
 
   /** Returns the result of applying this function to `level`.
     *
+    * @param lvl the skill-level
     * @param difficulty opposing level
     * @param mod modifier for `level`
     * @param attributes attributes to use for this check
     */
-  override final def apply(difficulty: Int = level, mod: Mod[Int] = identity, attributes: List[Attribute] = defaultAttributes): Result =
-    check(level, difficulty, mod, attributes)
+  override final def apply(lvl: Int, difficulty: Int, mod: Mod[Int] = identity, attributes: List[Attribute] = defaultAttributes): Result =
+    check(lvl, difficulty, mod, attributes)
 
   /** Returns the result depending on the rules defined by this method, using `defaultAttributes`. */
   override protected final def check(lvl: Int, difficulty: Int, mod: Mod[Int]): Result =
-    check(level, difficulty, mod, defaultAttributes)
+    check(lvl, difficulty, mod, defaultAttributes)
 
   /** Returns the result depending on the rules defined by this method. */
   protected def check(lvl: Int, difficulty: Int, mod: Mod[Int], attributes: List[Attribute]): Result

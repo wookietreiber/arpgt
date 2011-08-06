@@ -35,9 +35,6 @@ package rpg
   * @tparam A type of the ability level, usually an `Int`
   */
 trait Checkable[A] {
-  /** Returns the level of this checkable. */
-  val level: A
-
   /** Returns the result depending on the rules defined by this method. */
   protected def check(lvl: A, difficulty: A, mod: Mod[A]): Result
 }
