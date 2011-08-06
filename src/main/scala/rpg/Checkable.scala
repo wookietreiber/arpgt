@@ -34,17 +34,9 @@ package rpg
   *
   * @tparam A type of the ability level, usually an `Int`
   */
-trait Checkable[A] extends Function2[A,Mod[A],Result] {
+trait Checkable[A] {
   /** Returns the level of this checkable. */
   val level: A
-
-  /** Returns the result of applying this function to `level`.
-    *
-    * @param difficulty opposing level
-    * @param mod modifier for `level`
-    */
-  override def apply(difficulty: A = level, mod: Mod[A] = identity): Result =
-    check(level, difficulty, mod)
 
   /** Returns the result depending on the rules defined by this method. */
   protected def check(lvl: A, difficulty: A, mod: Mod[A]): Result

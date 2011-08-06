@@ -27,7 +27,32 @@
 package rpg
 
 /** Base trait of skills. */
-trait Skill extends Checkable[Int] {
+trait Skill extends Checkable[Int] with Function3[Int,Mod[Int],List[Attribute],Result] {
   /** Returns the name of this skill. */
   def name: String
+
+  /** Returns the attributes usually associated with this skill.
+    *
+    * Usually skills, like running, are associated with certain attributes, like
+    * stamina for running. Sometimes one needs other attributes, like
+    * estimating, how hard it is to success under given circumstances, so
+    * associated attributes should never be fix.
+    */
+  def defaultAttributes: List[Attribute]
+
+  /** Returns the result of applying this function to `level`.
+    *
+    * @param difficulty opposing level
+    * @param mod modifier for `level`
+    * @param attributes attributes to use for this check
+    */
+  override def apply(difficulty: Int = level, mod: Mod[Int] = identity, attributes: List[Attribute] = defaultAttributes): Result =
+    check(level, difficulty, mod, attributes)
+
+  /** Returns the result depending on the rules defined by this method, using `defaultAttributes`. */
+  override protected def check(lvl: Int, difficulty: Int, mod: Mod[Int]): Result =
+    check(level, difficulty, mod, defaultAttributes)
+
+  /** Returns the result depending on the rules defined by this method. */
+  protected def check(lvl: Int, difficulty: Int, mod: Mod[Int], attributes: List[Attribute]): Result
 }
