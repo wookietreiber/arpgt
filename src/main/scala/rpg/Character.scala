@@ -32,6 +32,6 @@ abstract class Character[A <: Attribute] {
   val hitpoints: HitPoints
   val skills: Skills[A]
 
-  def check(a: attributes.Attribute): Result
-  def check(s: skills.Skill): Result
+  def check(a: attributes.Attribute): Result[Int]
+  def check(s: skills.Skill): Result[Int]
 }

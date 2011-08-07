@@ -31,7 +31,7 @@ class AttributeResult(
     val level: Int,
     val difficulty: Option[Int] = None,
     val mod: Option[Mod[Int]] = None)
-  extends Result {
+  extends Result[Int] {
 
   def vs(difficulty: Int): AttributeResult =
     new AttributeResult(attribute, level, Some(difficulty))
@@ -46,7 +46,7 @@ class SkillResult(
     val difficulty: Option[Int] = None,
     val mod: Option[Mod[Int]] = None)
     (val defaultAttributes: List[TestAttribute] = skill.defaultAttributes)
-  extends Result {
+  extends Result[Int] {
 
   def vs(difficulty: Int) =
     new SkillResult(skill, level, Some(difficulty))()

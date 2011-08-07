@@ -36,5 +36,5 @@ package rpg
   */
 trait Checkable[A] {
   /** Returns the result depending on the rules defined by this method. */
-  protected def check(lvl: A, difficulty: A, mod: Mod[A]): Result
+  protected def check(lvl: A, difficulty: A, mod: Mod[A]): Result[A]
 }

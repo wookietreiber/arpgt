@@ -27,7 +27,7 @@
 package rpg
 
 sealed abstract class TestAttribute(val name: String) extends Attribute {
-  override def check(lvl: Int, difficulty: Int, mod: Mod[Int]): Result =
+  override def check(lvl: Int, difficulty: Int, mod: Mod[Int]): Result[Int] =
     new AttributeResult(this, lvl, Some(difficulty), Some(mod))
 }
 

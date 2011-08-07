@@ -33,9 +33,9 @@ class CharacterChecksSpec extends Specification {
     "work" in {
       val bob = new TestCharacter
       (
-        bob check Running vs 2 under { _ - 3 }
-//        bob check Running vs Level(2, "jogger") under BadCircumstances("limps", { _ - 3 } )
-      ) must beAnInstanceOf[Result]
+        // TODO no function type at circumstances
+        bob check Running vs Level(2, "jogger") under BadCircumstances((a: Int) => a - 3, "limps")
+      ) must beAnInstanceOf[Result[Int]]
     }
   }
 }

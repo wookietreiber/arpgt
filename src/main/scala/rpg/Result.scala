@@ -26,13 +26,13 @@
 
 package rpg
 
-abstract class Result {
-  def vs(lvl: Int): Result
-  def vs(lvl: Level[Int]): Result =
+abstract class Result[A] {
+  def vs(lvl: A): Result[A]
+  def vs(lvl: Level[A]): Result[A] =
     vs(lvl.difficulty)
 //  def vs(char: Character): Result
 
-  def under(f: Mod[Int]): Result
-  def under(c: Circumstances[Int]): Result =
+  def under(f: Mod[A]): Result[A]
+  def under(c: Circumstances[A]): Result[A] =
     under(c.mod)
 }

@@ -27,7 +27,7 @@
 package rpg
 
 /** Base trait of attributes. */
-trait Attribute extends Checkable[Int] with ((Int,Int,Mod[Int]) => Result) {
+trait Attribute extends Checkable[Int] with ((Int,Int,Mod[Int]) => Result[Int]) {
   /** Returns the name of this attribute. */
   def name: String
 
@@ -37,6 +37,6 @@ trait Attribute extends Checkable[Int] with ((Int,Int,Mod[Int]) => Result) {
     * @param difficulty opposing level
     * @param mod modifier for `level`
     */
-  override final def apply(lvl: Int, difficulty: Int, mod: Mod[Int] = identity): Result =
+  override final def apply(lvl: Int, difficulty: Int, mod: Mod[Int] = identity): Result[Int] =
     check(lvl, difficulty, mod)
 }
