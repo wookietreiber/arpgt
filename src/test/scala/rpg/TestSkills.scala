@@ -26,23 +26,21 @@
 
 package rpg
 
-import org.specs2.mutable._
+sealed abstract class TestSkill(
+    val name: String,
+    val defaultAttributes: List[TestAttribute])
+  extends Skill[TestAttribute] {
 
-class HitPointsSpec extends Specification {
-  import HitPoints._
+  override def check(lvl: Int, difficulty: Int, mod: Mod[Int], attributes: List[TestAttribute]) =
+    new SkillResult(this, lvl, Some(difficulty), Some(mod))(attributes)
+}
 
-  implicit val maxhp = 42
-  implicit val dmg   = Damage(10)
-  implicit val life  = Life(4)
+case object Running extends TestSkill("Running", List(Stamina))
 
-  """a "HitPoints" implementation""" should {
-    "get hurt and healed correctly" in {
-      val impl = new HitPointsImpl
-      impl.hurt
-      impl.heal
-      impl.hp must_== (maxhp - dmg.amount + life.amount)
-    }
-  }
+class TestSkills(default: Int) extends Skills[TestAttribute] {
+  type Skill = TestSkill
 
-  class HitPointsImpl(override implicit val maxhp: Int) extends HitPoints
+  protected def defaultSkillValues = (s: Skill) => default
+
+  def +(s: Skill, v: Int) { skills += (s -> v) }
 }

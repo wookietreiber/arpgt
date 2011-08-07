@@ -28,21 +28,14 @@ package rpg
 
 import org.specs2.mutable._
 
-class HitPointsSpec extends Specification {
-  import HitPoints._
-
-  implicit val maxhp = 42
-  implicit val dmg   = Damage(10)
-  implicit val life  = Life(4)
-
-  """a "HitPoints" implementation""" should {
-    "get hurt and healed correctly" in {
-      val impl = new HitPointsImpl
-      impl.hurt
-      impl.heal
-      impl.hp must_== (maxhp - dmg.amount + life.amount)
+class CharacterChecksSpec extends Specification {
+  "DSL check syntax" should {
+    "work" in {
+      val bob = new TestCharacter
+      (
+        bob check Running vs 2 under { _ - 3 }
+//        bob check Running vs Level(2, "jogger") under BadCircumstances("limps", { _ - 3 } )
+      ) must beAnInstanceOf[Result]
     }
   }
-
-  class HitPointsImpl(override implicit val maxhp: Int) extends HitPoints
 }

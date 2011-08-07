@@ -27,10 +27,10 @@
 package rpg
 
 abstract class Result {
-//  def vs(lvl: Int): Result
+  def vs(lvl: Int): Result
 //  def vs(lvl: Level): Result
 //  def vs(char: Character): Result
 
-//  def under(f: Mod[Int]): Result
+  def under(f: Mod[Int]): Result
 //  def under(c: CircumStance): Result
 }

@@ -26,23 +26,11 @@
 
 package rpg
 
-import org.specs2.mutable._
+class TestCharacter extends Character[TestAttribute] {
+  override val attributes = new TestAttributes(2)
+  override val hitpoints = new TestHitPoints(42)
+  override val skills = new TestSkills(-1)
 
-class HitPointsSpec extends Specification {
-  import HitPoints._
-
-  implicit val maxhp = 42
-  implicit val dmg   = Damage(10)
-  implicit val life  = Life(4)
-
-  """a "HitPoints" implementation""" should {
-    "get hurt and healed correctly" in {
-      val impl = new HitPointsImpl
-      impl.hurt
-      impl.heal
-      impl.hp must_== (maxhp - dmg.amount + life.amount)
-    }
-  }
-
-  class HitPointsImpl(override implicit val maxhp: Int) extends HitPoints
+  def check(a: TestAttribute) = new AttributeResult(a, attributes(a))
+  def check(s: TestSkill) = new SkillResult(s, skills(s))()
 }

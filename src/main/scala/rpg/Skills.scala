@@ -27,9 +27,9 @@
 package rpg
 
 /** Provides skills. */
-trait Skills {
+trait Skills[A <: Attribute] {
   /** Specialized skill type. */
-  type Skill <: rpg.Skill
+  type Skill <: rpg.Skill[A]
 
   /** Returns the value of given skill. */
   final def apply(s: Skill) = skills(s)

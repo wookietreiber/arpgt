@@ -26,23 +26,4 @@
 
 package rpg
 
-import org.specs2.mutable._
-
-class HitPointsSpec extends Specification {
-  import HitPoints._
-
-  implicit val maxhp = 42
-  implicit val dmg   = Damage(10)
-  implicit val life  = Life(4)
-
-  """a "HitPoints" implementation""" should {
-    "get hurt and healed correctly" in {
-      val impl = new HitPointsImpl
-      impl.hurt
-      impl.heal
-      impl.hp must_== (maxhp - dmg.amount + life.amount)
-    }
-  }
-
-  class HitPointsImpl(override implicit val maxhp: Int) extends HitPoints
-}
+class TestHitPoints(val maxhp: Int) extends HitPoints

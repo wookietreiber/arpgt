@@ -6,7 +6,7 @@
  *                                                                          *
  ****************************************************************************
  *                                                                          *
- *  This file is part of 'echo-tools'.                                      *
+ *  This file is part of 'arpgt'.                                           *
  *                                                                          *
  *  This project is free software: you can redistribute it and/or modify    *
  *  it under the terms of the GNU General Public License as published by    *
@@ -29,26 +29,19 @@ package rpg
 import org.specs2.mutable._
 
 class AttributesSpec extends Specification {
-  val attr = new Attribute
-  implicit val default = 42
+  val attr = Stamina
+  val default = 42
 
   """an "Attributes" implementation""" should {
     "return the default for unset attributes" in {
-      val impl = new AttributesImpl
+      val impl = new TestAttributes(default)
       impl(attr) must_== default
     }
 
     "return non-default values for set attributes" in {
-      val impl = new AttributesImpl
+      val impl = new TestAttributes(default)
       impl + (attr, 4)
       impl(attr) !== default
     }
-  }
-
-  class Attribute extends GenericAttribute
-  class AttributesImpl(implicit val default: Int) extends Attributes {
-    type A = Attribute
-    override lazy val defaultAttributeValues = (a: Attribute) => default
-    def +(a: Attribute, v: Int) { attributes += (a -> v) }
   }
 }

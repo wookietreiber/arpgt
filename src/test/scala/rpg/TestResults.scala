@@ -26,23 +26,31 @@
 
 package rpg
 
-import org.specs2.mutable._
+class AttributeResult(
+    val attribute: Attribute,
+    val level: Int,
+    val difficulty: Option[Int] = None,
+    val mod: Option[Mod[Int]] = None)
+  extends Result {
 
-class HitPointsSpec extends Specification {
-  import HitPoints._
+  def vs(difficulty: Int): AttributeResult =
+    new AttributeResult(attribute, level, Some(difficulty))
 
-  implicit val maxhp = 42
-  implicit val dmg   = Damage(10)
-  implicit val life  = Life(4)
+  def under(f: Mod[Int]): AttributeResult =
+    new AttributeResult(attribute, level, difficulty, Some(f))
+}
 
-  """a "HitPoints" implementation""" should {
-    "get hurt and healed correctly" in {
-      val impl = new HitPointsImpl
-      impl.hurt
-      impl.heal
-      impl.hp must_== (maxhp - dmg.amount + life.amount)
-    }
-  }
+class SkillResult(
+    val skill: Skill[TestAttribute],
+    val level: Int,
+    val difficulty: Option[Int] = None,
+    val mod: Option[Mod[Int]] = None)
+    (val defaultAttributes: List[TestAttribute] = skill.defaultAttributes)
+  extends Result {
 
-  class HitPointsImpl(override implicit val maxhp: Int) extends HitPoints
+  def vs(difficulty: Int) =
+    new SkillResult(skill, level, Some(difficulty))()
+
+  def under(f: Mod[Int]) =
+    new SkillResult(skill, level, difficulty, Some(f))()
 }
