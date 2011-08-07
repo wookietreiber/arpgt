@@ -26,5 +26,11 @@
 
 package rpg
 
-/** Simple "opponent" for a check. */
-case class Level(difficulty: Int, description: String = "")
+/** Simple reacting part of a check.
+  *
+  * @param difficulty how hard the check will be
+  * @param description short description of the reacting part
+  *
+  * @tparam A type of what will be checked against
+  */
+case class Level[A](difficulty: A, description: String = "")
