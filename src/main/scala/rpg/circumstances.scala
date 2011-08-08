@@ -26,27 +26,9 @@
 
 package rpg
 
-/** Describes circumstances used to modify the acting party. */
-trait Circumstances {
-  /** Returns the modifier. */
-  def mod: Mod[Int]
-
-  /** Returns the description of the circumstances. */
-  def description: String
-}
-
-/** Describes good circumstances used to modify the acting party.
+/** Describes circumstances used to modify the acting party.
   *
   * @param mod the modifier
   * @param description the description of the circumstances
   */
-case class GoodCircumstances(mod: Mod[Int], description: String = "")
-  extends Circumstances
-
-/** Describes bad circumstances used to modify the acting party.
-  *
-  * @param mod the modifier
-  * @param description the description of the circumstances
-  */
-case class BadCircumstances(mod: Mod[Int], description: String = "")
-  extends Circumstances
+case class Circumstances(mod: Mod[Int], description: String = "")

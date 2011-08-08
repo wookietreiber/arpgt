@@ -38,7 +38,7 @@ trait Attributes[A <: Attribute] {
   final def apply(a: A) = attrmap(a)
 
   /** Modifies the value of the given attribute. */
-  final def mod(a: A)(mod: Mod[Int] = _ + 1) {
+  final def mod(a: A, mod: Mod[Int] = _ + 1) {
     attrmap += (a -> mod(attrmap(a)))
   }
 
