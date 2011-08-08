@@ -26,15 +26,15 @@
 
 package rpg
 
-/** Function returning the results of checking an ability.
-  *
-  * The general rules are as follows: the check of the ability `level` has a
-  * certain `difficulty` (defaults to `level`) and the ability `level` can be
-  * modified, e.g. by bad circumstances like being hurt.
-  *
-  * @tparam A type of the ability level, usually an `Int`
-  */
-trait Checkable[A] {
-  /** Returns the result depending on the rules defined by this method. */
-  protected def check(lvl: A, difficulty: A, mod: Mod[A]): Result[A]
+abstract class Evaluation {
+  def value: Int
+
+  def vs(lvl: Int): Evaluation
+  def vs(lvl: Level[Int]): Evaluation =
+    vs(lvl.difficulty)
+//  def vs(char: Character): Evaluation
+
+  def under(f: Mod[Int]): Evaluation
+  def under(c: Circumstances): Evaluation =
+    under(c.mod)
 }

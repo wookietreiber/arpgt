@@ -26,13 +26,37 @@
 
 package rpg
 
-abstract class Result[A] {
-  def vs(lvl: A): Result[A]
-  def vs(lvl: Level[A]): Result[A] =
-    vs(lvl.difficulty)
-//  def vs(char: Character): Result
+/** Represents the outcome of a check.
+  *
+  * Results are devided in the two subcategories [[rpg.Success]] and
+  * [[rpg.Failure]]. There are no ties - the actual ruleset decides whether a
+  * tie favours the acting party or the reacting party.
+  */
+sealed abstract class Result {
+  /** Returns the description of this result. */
+  val description: String
 
-  def under(f: Mod[A]): Result[A]
-  def under(c: Circumstances[A]): Result[A] =
-    under(c.mod)
+  /** Returns the description of this result. */
+  override def toString = description
 }
+
+/** The acting party succeeded in any way. */
+abstract class Success extends Result
+
+/** The acting party failed in any way. */
+abstract class Failure extends Result
+
+/** The acting party is incapable of performing the check. */
+case class Incapable(description: String = "") extends Failure
+
+/** The acting party is inferior. */
+case class Inferior(description: String = "") extends Failure
+
+/** The acting party is superior. */
+case class Superior(description: String = "") extends Success
+
+/** The acting party failed. */
+case class Failed(description: String = "") extends Failure
+
+/** The acting party succeeded. */
+case class Succeeded(description: String = "") extends Success

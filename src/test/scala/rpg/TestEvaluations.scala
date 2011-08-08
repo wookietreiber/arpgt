@@ -26,31 +26,31 @@
 
 package rpg
 
-class AttributeResult(
-    val attribute: Attribute,
-    val level: Int,
-    val difficulty: Option[Int] = None,
-    val mod: Option[Mod[Int]] = None)
-  extends Result[Int] {
+case class AttributeEvaluation(
+    attribute: Attribute,
+    value: Int,
+    difficulty: Option[Int] = None,
+    mod: Option[Mod[Int]] = None)
+  extends Evaluation {
 
-  def vs(difficulty: Int): AttributeResult =
-    new AttributeResult(attribute, level, Some(difficulty))
+  def vs(difficulty: Int): AttributeEvaluation =
+    new AttributeEvaluation(attribute, value, Some(difficulty))
 
-  def under(f: Mod[Int]): AttributeResult =
-    new AttributeResult(attribute, level, difficulty, Some(f))
+  def under(f: Mod[Int]): AttributeEvaluation =
+    new AttributeEvaluation(attribute, value, difficulty, Some(f))
 }
 
-class SkillResult(
-    val skill: Skill[TestAttribute],
-    val level: Int,
-    val difficulty: Option[Int] = None,
-    val mod: Option[Mod[Int]] = None)
+case class SkillEvaluation(
+    skill: Skill[TestAttribute],
+    value: Int,
+    difficulty: Option[Int] = None,
+    mod: Option[Mod[Int]] = None)
     (val defaultAttributes: List[TestAttribute] = skill.defaultAttributes)
-  extends Result[Int] {
+  extends Evaluation {
 
   def vs(difficulty: Int) =
-    new SkillResult(skill, level, Some(difficulty))()
+    new SkillEvaluation(skill, value, Some(difficulty))()
 
   def under(f: Mod[Int]) =
-    new SkillResult(skill, level, difficulty, Some(f))()
+    new SkillEvaluation(skill, value, difficulty, Some(f))()
 }

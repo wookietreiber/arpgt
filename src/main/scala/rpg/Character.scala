@@ -28,10 +28,10 @@ package rpg
 
 /** Base trait of characters. */
 abstract class Character[A <: Attribute] {
-  val attributes: Attributes
+  val attributes: Attributes[A]
   val hitpoints: HitPoints
   val skills: Skills[A]
 
-  def check(a: attributes.Attribute): Result[Int]
-  def check(s: skills.Skill): Result[Int]
+  def check(a: A): Evaluation
+  def check(s: skills.Skill): Evaluation
 }

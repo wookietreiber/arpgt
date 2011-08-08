@@ -29,11 +29,7 @@ package rpg
 sealed abstract class TestSkill(
     val name: String,
     val defaultAttributes: List[TestAttribute])
-  extends Skill[TestAttribute] {
-
-  override def check(lvl: Int, difficulty: Int, mod: Mod[Int], attributes: List[TestAttribute]) =
-    new SkillResult(this, lvl, Some(difficulty), Some(mod))(attributes)
-}
+  extends Skill[TestAttribute]
 
 case object Running extends TestSkill("Running", List(Stamina))
 

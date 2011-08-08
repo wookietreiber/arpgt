@@ -26,14 +26,11 @@
 
 package rpg
 
-sealed abstract class TestAttribute(val name: String) extends Attribute {
-  override def check(lvl: Int, difficulty: Int, mod: Mod[Int]): Result[Int] =
-    new AttributeResult(this, lvl, Some(difficulty), Some(mod))
-}
+sealed abstract class TestAttribute(val name: String) extends Attribute
 
 case object Stamina extends TestAttribute("Stamina")
 
-class TestAttributes(default: Int) extends Attributes {
+class TestAttributes(default: Int) extends Attributes[TestAttribute] {
   type Attribute = TestAttribute
 
   protected def defaultAttributeValues = (a: Attribute) => default

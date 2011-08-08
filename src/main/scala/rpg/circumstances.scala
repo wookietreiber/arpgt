@@ -26,13 +26,10 @@
 
 package rpg
 
-/** Describes circumstances used to modify the acting party.
-  *
-  * @tparam A the type of what will be modified
-  */
-trait Circumstances[A] {
+/** Describes circumstances used to modify the acting party. */
+trait Circumstances {
   /** Returns the modifier. */
-  def mod: Mod[A]
+  def mod: Mod[Int]
 
   /** Returns the description of the circumstances. */
   def description: String
@@ -42,18 +39,14 @@ trait Circumstances[A] {
   *
   * @param mod the modifier
   * @param description the description of the circumstances
-  *
-  * @tparam A the type of what will be modified
   */
-case class GoodCircumstances[A](mod: Mod[A], description: String = "")
-  extends Circumstances[A]
+case class GoodCircumstances(mod: Mod[Int], description: String = "")
+  extends Circumstances
 
 /** Describes bad circumstances used to modify the acting party.
   *
   * @param mod the modifier
   * @param description the description of the circumstances
-  *
-  * @tparam A the type of what will be modified
   */
-case class BadCircumstances[A](mod: Mod[A], description: String = "")
-  extends Circumstances[A]
+case class BadCircumstances(mod: Mod[Int], description: String = "")
+  extends Circumstances
