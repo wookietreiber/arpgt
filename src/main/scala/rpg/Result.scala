@@ -36,7 +36,7 @@ sealed abstract class Result {
   /** Returns the description of this result. */
   val description: String
 
-  /** Returns the description of this result. */
+  /** Returns `description`. */
   override def toString = description
 }
 
@@ -46,7 +46,10 @@ abstract class Success extends Result
 /** The acting party failed in any way. */
 abstract class Failure extends Result
 
-/** The acting party is incapable of performing the check. */
+/** The acting party is incapable of performing the check.
+  *
+  * @param  description  explains why the acting party is incapable
+  */
 case class Incapable(description: String = "") extends Failure
 
 /** The acting party is inferior. */
