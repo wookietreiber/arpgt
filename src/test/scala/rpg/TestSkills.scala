@@ -26,17 +26,11 @@
 
 package rpg
 
-sealed abstract class TestSkill(
-    val name: String,
-    val defaultAttributes: List[TestAttribute])
+sealed abstract class TestSkill(val defaultAttributes: List[TestAttribute])
   extends Skill[TestAttribute]
 
-case object Running extends TestSkill("Running", List(Stamina))
+case object Running extends TestSkill(List(Stamina))
 
-class TestSkills(default: Int) extends Skills[TestAttribute] {
-  type Skill = TestSkill
-
-  protected def defaultSkillValues = (s: Skill) => default
-
-  def +(s: Skill, v: Int) { skills += (s -> v) }
+class TestSkills(default: Int) extends Skills[TestAttribute,TestSkill] {
+  override lazy val defaultSkillValues = (s: TestSkill) => default
 }

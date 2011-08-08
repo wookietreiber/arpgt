@@ -40,7 +40,7 @@ class SkillsSpec extends Specification {
 
     "return non-default values for set skills" in {
       val impl = new TestSkills(default)
-      impl + (skill, 4)
+      impl.mod(skill)
       impl(skill) !== default
     }
   }

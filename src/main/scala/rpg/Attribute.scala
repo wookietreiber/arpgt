@@ -44,8 +44,8 @@ package rpg
   *  - sealed hierarchy and case objects come in handy for pattern matching
   *  - `toString` will nicely return the name of the case object
   *
-  * Attributes should never hold the actual value of the attribute, because they
-  * are usually saved in an attribute-value map.
+  * Attributes should never hold their actual value, because they are usually
+  * saved in an attribute-value map.
   *
   * @see [[rpg.Attributes]] for how attributes are usually saved
   */
