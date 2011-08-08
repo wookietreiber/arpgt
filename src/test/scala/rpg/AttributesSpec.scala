@@ -38,9 +38,9 @@ class AttributesSpec extends Specification {
       impl(attr) must_== default
     }
 
-    "return non-default values for set attributes" in {
+    "return non-default values for modified attributes" in {
       val impl = new TestAttributes(default)
-      impl + (attr, 4)
+      impl.mod(attr)(_ + 4)
       impl(attr) !== default
     }
   }

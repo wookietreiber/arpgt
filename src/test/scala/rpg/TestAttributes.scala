@@ -31,9 +31,5 @@ sealed abstract class TestAttribute extends Attribute
 case object Stamina extends TestAttribute
 
 class TestAttributes(default: Int) extends Attributes[TestAttribute] {
-  type Attribute = TestAttribute
-
-  protected def defaultAttributeValues = (a: Attribute) => default
-
-  def +(a: Attribute, v: Int) { attributes += (a -> v) }
+  override lazy val defaultAttributeValues = (a: TestAttribute) => default
 }
