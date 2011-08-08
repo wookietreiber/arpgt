@@ -26,9 +26,9 @@
 
 package rpg
 
-sealed abstract class TestAttribute(val name: String) extends Attribute
+sealed abstract class TestAttribute extends Attribute
 
-case object Stamina extends TestAttribute("Stamina")
+case object Stamina extends TestAttribute
 
 class TestAttributes(default: Int) extends Attributes[TestAttribute] {
   type Attribute = TestAttribute
