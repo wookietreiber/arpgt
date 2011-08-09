@@ -26,8 +26,14 @@
 
 package rpg
 
-/** Contains hit-point-related messages. */
+/** Contains hit-point-related messages and implicit conversions. */
 object HitPoints {
+  /** Message wrapping hit-points. */
+  case class HP(value: Int) extends (() => Int) {
+    /** Returns `value`. */
+    override def apply() = value
+  }
+
   /** Message for hurting.
     *
     * @param amount has to be positive
@@ -39,11 +45,21 @@ object HitPoints {
     * @param amount has to be positive
     */
   case class Life(amount: Int) { require(amount > 0) }
+
+  /** Converts an `Int` to [[rpg.HitPoints.Damage]]. */
+  implicit def int2Damage(amount: Int) = Damage(amount)
+
+  /** Converts an `Int` to [[rpg.HitPoints.Life]]. */
+  implicit def int2Life(amount: Int) = Life(amount)
 }
 
 import HitPoints._
 
-/** Provides hit-points. */
+/** Provides hit-points.
+  *
+  * @todo low hit-point modificator
+  * @todo damage - armor
+  */
 trait HitPoints {
 
   // -------------------------------------------------------------------
@@ -65,8 +81,8 @@ trait HitPoints {
   // mutable state convenience access and mutation
   // -------------------------------------------------------------------
 
-  /** Returns current hit-points. */
-  def apply() = hp
+  /** Returns current hit-points wrapped in [[rpg.HitPoints.HP]]. */
+  def apply() = HP(hp)
 
   /** Decreases hit-points by given amount of damage and returns the result. */
   def hurt(implicit dmg: Damage) = {
