@@ -28,9 +28,18 @@ package rpg
 
 /** Represents the outcome of a check.
   *
-  * Results are devided in the two subcategories [[rpg.Success]] and
-  * [[rpg.Failure]]. There are no ties - the actual ruleset decides whether a
-  * tie favours the acting party or the reacting party.
+  * There are always two parties in a check: the acting party (or actor) is
+  * performing some task, is initiating it and the reacting party (or reactor)
+  * is the (abstract) opponent of the actor, which can be something like
+  * [[rpg.Level]], too, it sets on one part how hard it is for the actor to
+  * succeed or not.
+  *
+  * Hence results always describe the acting party. They are devided in the two
+  * subcategories [[rpg.Success]] and [[rpg.Failure]]. There are no ties - the
+  * actual ruleset decides whether a tie favours the acting party or not.
+  *
+  * @see [[rpg.Success]]
+  * @see [[rpg.Failure]]
   */
 sealed abstract class Result {
   /** Returns the description of this result. */
@@ -40,26 +49,32 @@ sealed abstract class Result {
   override def toString = description
 }
 
-/** The acting party succeeded in any way. */
+/** The acting party succeeded in any way.
+  *
+  * @see [[rpg.Succeeded]]
+  * @see [[rpg.Superior]]
+  */
 abstract class Success extends Result
 
-/** The acting party failed in any way. */
+/** The acting party failed in any way.
+  *
+  * @see [[rpg.Failed]]
+  * @see [[rpg.Inferior]]
+  * @see [[rpg.Incapable]]
+  */
 abstract class Failure extends Result
 
-/** The acting party is incapable of performing the check.
-  *
-  * @param  description  explains why the acting party is incapable
-  */
-case class Incapable(description: String = "") extends Failure
+/** The acting party is incapable of performing the check. */
+case class Incapable(description: String = "incapable") extends Failure
 
 /** The acting party is inferior. */
-case class Inferior(description: String = "") extends Failure
+case class Inferior(description: String = "inferior") extends Failure
 
 /** The acting party is superior. */
-case class Superior(description: String = "") extends Success
+case class Superior(description: String = "superior") extends Success
 
 /** The acting party failed. */
-case class Failed(description: String = "") extends Failure
+case class Failed(description: String = "failed") extends Failure
 
 /** The acting party succeeded. */
-case class Succeeded(description: String = "") extends Success
+case class Succeeded(description: String = "succeeded") extends Success
