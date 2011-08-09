@@ -52,4 +52,7 @@ trait Attributes[A <: Attribute] {
 
   /** Returns the attribute to value map. */
   private var attrmap = Map[A,Int]() withDefault defaultAttributeValues
+
+  /** Returns an evaluation to check the given attribute. */
+  def check(a: A): Evaluation
 }

@@ -56,4 +56,7 @@ trait Skills[A <: Attribute,S <: Skill[A]] {
 
   /** Returns the skill to value map. */
   private var skillmap = Map[S,Int]() withDefault defaultSkillValues
+
+  /** Returns an evaluation to check the given skill. */
+  def check(s: S): Evaluation
 }

@@ -26,11 +26,11 @@
 
 package rpg
 
-/** Simple reacting part of a check.
+/** Simple reacting party.
   *
-  * @param difficulty how hard the check will be
-  * @param description short description of the reacting part
+  * @param difficulty how hard this reacting party is to defeat
+  * @param description short description of this reacting party
   *
-  * @tparam A type of what will be checked against
+  * @tparam A value type
   */
 case class Level[A](difficulty: A, description: String = "")

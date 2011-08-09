@@ -30,7 +30,4 @@ class TestCharacter extends Character[TestAttribute,TestSkill] {
   override val attributes = new TestAttributes(2)
   override val hitpoints = new TestHitPoints(42)
   override val skills = new TestSkills(-1)
-
-  def check(a: TestAttribute) = new AttributeEvaluation(a, attributes(a))
-  def check(s: TestSkill) = new SkillEvaluation(s, skills(s))()
 }

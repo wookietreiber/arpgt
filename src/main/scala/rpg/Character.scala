@@ -26,12 +26,46 @@
 
 package rpg
 
-/** Base trait of characters. */
+/** Base class of characters. A character is basically the composition of
+  * [[rpg.Attributes]], [[rpg.Skills]] and [[rpg.HitPoints]].
+  *
+  * @tparam A the used attribute type (default attributes of skills)
+  * @tparam S the used skill type
+  *
+  * @see [[rpg.Attributes]]
+  * @see [[rpg.Skills]]
+  * @see [[rpg.HitPoints]]
+  */
 abstract class Character[A <: Attribute,S <: Skill[A]] {
+
+  // -------------------------------------------------------------------
+  // composition
+  // -------------------------------------------------------------------
+
+  /** Returns this characters attributes. */
   val attributes: Attributes[A]
+
+  /** Returns this characters hit-points. */
   val hitpoints: HitPoints
+
+  /** Returns this characters skills. */
   val skills: Skills[A,S]
 
-  def check(a: A): Evaluation
-  def check(s: S): Evaluation
+  // -------------------------------------------------------------------
+  // convenience (DSL)
+  // -------------------------------------------------------------------
+
+  /** Returns an evaluation to check the given attribute.
+    *
+    * This is a convenience method, i.e. it just forwards to
+    * `attributes.check(a)`.
+    */
+  def check(a: A) = attributes.check(a)
+
+  /** Returns an evaluation to check the given skill.
+    *
+    * This is a convenience method, i.e. it just forwards to
+    * `skills.check(s)`.
+    */
+  def check(s: S) = skills.check(s)
 }

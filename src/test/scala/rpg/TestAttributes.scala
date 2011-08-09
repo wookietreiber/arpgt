@@ -32,4 +32,5 @@ case object Stamina extends TestAttribute
 
 class TestAttributes(default: Int) extends Attributes[TestAttribute] {
   override lazy val defaultAttributeValues = (a: TestAttribute) => default
+  def check(a: TestAttribute) = new AttributeEvaluation(a, attributes(a))
 }

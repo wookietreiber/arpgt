@@ -28,6 +28,11 @@ package rpg
 
 /** Contains hit-point-related messages and implicit conversions. */
 object HitPoints {
+
+  // -------------------------------------------------------------------
+  // messages
+  // -------------------------------------------------------------------
+
   /** Message wrapping hit-points. */
   case class HP(value: Int) extends (() => Int) {
     /** Returns `value`. */
@@ -45,6 +50,10 @@ object HitPoints {
     * @param amount has to be positive
     */
   case class Life(amount: Int) { require(amount > 0) }
+
+  // -------------------------------------------------------------------
+  // implicit conversions
+  // -------------------------------------------------------------------
 
   /** Converts an `Int` to [[rpg.HitPoints.Damage]]. */
   implicit def int2Damage(amount: Int) = Damage(amount)
