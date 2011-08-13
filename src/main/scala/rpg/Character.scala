@@ -37,6 +37,11 @@ package rpg
   * @see [[rpg.HitPoints]]
   */
 abstract class Character[A <: Attribute,S <: Skill[A]] {
+  /** Returns this characters name. */
+  def name: String
+
+  /** Returns `name`. */
+  override def toString = name
 
   // -------------------------------------------------------------------
   // composition
@@ -55,14 +60,14 @@ abstract class Character[A <: Attribute,S <: Skill[A]] {
   // convenience (DSL)
   // -------------------------------------------------------------------
 
-  /** Returns an evaluation to check the given attribute.
+  /** Returns a check of the given attribute.
     *
     * This is a convenience method, i.e. it just forwards to
     * `attributes.check(a)`.
     */
   def check(a: A) = attributes.check(a)
 
-  /** Returns an evaluation to check the given skill.
+  /** Returns a check of the given skill.
     *
     * This is a convenience method, i.e. it just forwards to
     * `skills.check(s)`.

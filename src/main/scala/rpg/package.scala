@@ -52,20 +52,8 @@ package object rpg {
   // function aliases
   // ----------------------------------------------------------------------
 
-  /** Type of modifier functions. */
+  /** Modifier function. */
   type Mod[A] = A => A
-
-  /** DSL alias. */
-  type BadCircumstances = Circumstances
-
-  /** DSL alias. */
-  val BadCircumstances = Circumstances
-
-  /** DSL alias. */
-  type GoodCircumstances = Circumstances
-
-  /** DSL alias. */
-  val GoodCircumstances = Circumstances
 
   // ----------------------------------------------------------------------
   // common dice

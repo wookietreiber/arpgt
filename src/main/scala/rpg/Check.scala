@@ -26,31 +26,60 @@
 
 package rpg
 
-case class AttributeEvaluation(
-    attribute: Attribute,
-    value: Int,
-    difficulty: Option[Int] = None,
-    mod: Option[Mod[Int]] = None)
-  extends Evaluation {
+/** Contains implicit conversion from convenience methods to what is used by the
+  * factory methods of [[rpg.Check]] instances.
+  */
+object Check {
 
-  def vs(difficulty: Int): AttributeEvaluation =
-    new AttributeEvaluation(attribute, value, Some(difficulty))
+  // -------------------------------------------------------------------
+  // messages
+  // -------------------------------------------------------------------
 
-  def under(f: Mod[Int]): AttributeEvaluation =
-    new AttributeEvaluation(attribute, value, difficulty, Some(f))
+  case class Checker(checked: Any, checkedValue: Int, description: String) {
+    override def toString = description + "(" + checked + "," + checkedValue + ")"
+  }
+
+  /** Simple reacting party.
+    *
+    * @param difficulty how hard this reacting party is to defeat
+    * @param description short description of this reacting party
+    *
+    * @tparam A value type
+    */
+  case class Level[A](difficulty: A, description: String = "opponent") {
+    /** Returns `"level " + difficulty + " " + description`. */
+    override def toString = "level " + difficulty + " " + description
+  }
+
+  /** Describes circumstances used to modify the acting party.
+    *
+    * @param mod the modifier
+    * @param description the description of the circumstances
+    */
+  case class Circumstances(mod: Mod[Int], description: String = "") {
+    /** Returns `description`. */
+    override def toString = description
+  }
+
+  val NoCircumstances = Circumstances(identity)
+
+  // -------------------------------------------------------------------
+  // implicit conversions
+  // -------------------------------------------------------------------
+
+  implicit def level2tuple[A](lvl: Level[A]) =
+    (lvl.difficulty -> lvl.description)
+
+  implicit def circumstances2tuple(c: Circumstances) =
+    (c.mod -> c.description)
 }
 
-case class SkillEvaluation(
-    skill: Skill[TestAttribute],
-    value: Int,
-    difficulty: Option[Int] = None,
-    mod: Option[Mod[Int]] = None)
-    (val defaultAttributes: List[TestAttribute] = skill.defaultAttributes)
-  extends Evaluation {
+import Check._
 
-  def vs(difficulty: Int) =
-    new SkillEvaluation(skill, value, Some(difficulty))()
+abstract class Check {
+  def vs(difficulty: Int): Check
+  def vs(opponent: Level[Int]): Check = vs(opponent.difficulty)
 
-  def under(f: Mod[Int]) =
-    new SkillEvaluation(skill, value, difficulty, Some(f))()
+  def under(f: Mod[Int]): Check
+  def under(c: Circumstances): Check = under(c.mod)
 }

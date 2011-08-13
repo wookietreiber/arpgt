@@ -34,5 +34,5 @@ case object Running extends TestSkill(List(Stamina))
 class TestSkills(default: Int) extends Skills[TestAttribute,TestSkill] {
   override lazy val defaultSkillValues = (s: TestSkill) => default
 
-  def check(s: TestSkill) = new SkillEvaluation(s, skills(s))()
+  def check(s: TestSkill) = new SkillCheck(s, skills(s))()
 }

@@ -26,7 +26,7 @@
 
 package rpg
 
-class TestCharacter extends Character[TestAttribute,TestSkill] {
+class TestCharacter(val name: String) extends Character[TestAttribute,TestSkill] {
   override val attributes = new TestAttributes(2)
   override val hitpoints = new TestHitPoints(42)
   override val skills = new TestSkills(-1)

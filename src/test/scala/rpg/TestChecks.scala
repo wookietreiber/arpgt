@@ -26,15 +26,31 @@
 
 package rpg
 
-abstract class Evaluation {
-  def value: Int
+case class AttributeCheck(
+    attribute: Attribute,
+    value: Int,
+    difficulty: Option[Int] = None,
+    mod: Option[Mod[Int]] = None)
+  extends Check {
 
-  def vs(lvl: Int): Evaluation
-  def vs(lvl: Level[Int]): Evaluation =
-    vs(lvl.difficulty)
-//  def vs(char: Character): Evaluation
+  def vs(difficulty: Int): AttributeCheck =
+    new AttributeCheck(attribute, value, Some(difficulty))
 
-  def under(f: Mod[Int]): Evaluation
-  def under(c: Circumstances): Evaluation =
-    under(c.mod)
+  def under(f: Mod[Int]): AttributeCheck =
+    new AttributeCheck(attribute, value, difficulty, Some(f))
+}
+
+case class SkillCheck(
+    skill: Skill[TestAttribute],
+    value: Int,
+    difficulty: Option[Int] = None,
+    mod: Option[Mod[Int]] = None)
+    (val defaultAttributes: List[TestAttribute] = skill.defaultAttributes)
+  extends Check {
+
+  def vs(difficulty: Int) =
+    new SkillCheck(skill, value, Some(difficulty))()
+
+  def under(f: Mod[Int]) =
+    new SkillCheck(skill, value, difficulty, Some(f))()
 }
