@@ -37,7 +37,7 @@ package rpg
   * @todo subtraits FixedSkills and OpenSkills(defines splitSkill for turning
   * e.g. perception(2) into hearing/seeing/tasting/feeling(2) and smelling(3))
   */
-trait Skills[A <: Attribute,S <: Skill[A]] {
+trait Skills[A <: Attribute,S <: Skill[A],C <: Check[S,C]] {
   /** Returns the value of the given skill. */
   final def apply(s: S) = skillmap(s)
 
@@ -58,8 +58,8 @@ trait Skills[A <: Attribute,S <: Skill[A]] {
   private var skillmap = Map[S,Int]() withDefault defaultSkillValues
 
   /** Returns a check of the given skill. */
-  def check(s: S, using: List[A]): Check
+  def check(s: S, using: List[A]): C
 
   /** Returns a check of the given skill. */
-  final def check(s: S): Check = check(s, s.defaultAttributes)
+  final def check(s: S): C = check(s, s.defaultAttributes)
 }

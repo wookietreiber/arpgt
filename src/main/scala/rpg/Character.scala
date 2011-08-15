@@ -36,7 +36,7 @@ package rpg
   * @see [[rpg.Skills]]
   * @see [[rpg.HitPoints]]
   */
-abstract class Character[A <: Attribute,S <: Skill[A]] {
+abstract class Character[A <: Attribute,S <: Skill[A],CA <: Check[A,CA],CS <: Check[S,CS]] {
   /** Returns this characters name. */
   def name: String
 
@@ -48,13 +48,13 @@ abstract class Character[A <: Attribute,S <: Skill[A]] {
   // -------------------------------------------------------------------
 
   /** Returns this characters attributes. */
-  val attributes: Attributes[A]
+  val attributes: Attributes[A,CA]
 
   /** Returns this characters hit-points. */
   val hitpoints: HitPoints
 
   /** Returns this characters skills. */
-  val skills: Skills[A,S]
+  val skills: Skills[A,S,CS]
 
   // -------------------------------------------------------------------
   // convenience (DSL)

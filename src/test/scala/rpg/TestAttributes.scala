@@ -26,11 +26,13 @@
 
 package rpg
 
+import Check._
+
 sealed abstract class TestAttribute extends Attribute
 
 case object Stamina extends TestAttribute
 
-class TestAttributes(default: Int) extends Attributes[TestAttribute] {
+class TestAttributes(default: Int) extends Attributes[TestAttribute,TestCheck[TestAttribute]] {
   override lazy val defaultAttributeValues = (a: TestAttribute) => default
-  def check(a: TestAttribute) = new AttributeCheck(a, attributes(a))
+  def check(a: TestAttribute) = new TestCheck(Checkee("", a, attributes(a)))
 }

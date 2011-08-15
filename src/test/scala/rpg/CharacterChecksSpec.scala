@@ -35,7 +35,7 @@ class CharacterChecksSpec extends Specification {
       val bob = new TestCharacter("Bob")
       (
         bob check Running vs 2 under { _ - 3 }
-      ) must beAnInstanceOf[Check]
+      ) must beAnInstanceOf[Check[TestSkill,TestCheck[TestSkill]]]
     }
   }
 
@@ -45,7 +45,7 @@ class CharacterChecksSpec extends Specification {
       (
         // TODO no function type at circumstances
         bob check Running vs Level(2, "jogger") under Circumstances(_ - 3, "limps")
-      ) must beAnInstanceOf[Check]
+      ) must beAnInstanceOf[Check[TestSkill,TestCheck[TestSkill]]]
     }
   }
 }

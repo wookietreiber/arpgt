@@ -35,9 +35,15 @@ object Check {
   // messages
   // -------------------------------------------------------------------
 
-  case class Checker(checked: Any, checkedValue: Int, description: String) {
-    override def toString = description + "(" + checked + "," + checkedValue + ")"
-  }
+  /** The subject of a [[rpg.Check]].
+    *
+    * @param description describes the subject, e.g. the name of a character
+    * @param checked which aspect is checked, e.g. an attribute
+    * @param value the value of what is checked
+    *
+    * @tparam A the type of the checked aspect
+    */
+  case class Checkee[A](description: String, checked: A, value: Int)
 
   /** Simple reacting party.
     *
@@ -46,10 +52,7 @@ object Check {
     *
     * @tparam A value type
     */
-  case class Level[A](difficulty: A, description: String = "opponent") {
-    /** Returns `"level " + difficulty + " " + description`. */
-    override def toString = "level " + difficulty + " " + description
-  }
+  case class Level[A](difficulty: A, description: String = "anonymous")
 
   /** Describes circumstances used to modify the acting party.
     *
@@ -60,30 +63,37 @@ object Check {
     /** Returns `description`. */
     override def toString = description
   }
-
-  val NoCircumstances = Circumstances(identity)
-
-  // -------------------------------------------------------------------
-  // implicit conversions
-  // -------------------------------------------------------------------
-
-  implicit def level2tuple[A](lvl: Level[A]) =
-    (lvl.difficulty -> lvl.description)
-
-  implicit def circumstances2tuple(c: Circumstances) =
-    (c.mod -> c.description)
 }
 
 import Check._
 
-abstract class Check {
-  def vs(difficulty: Int): Check
-  def vs(opponent: Level[Int]): Check = vs(opponent.difficulty)
+abstract class Check[A,C <: Check[A,C]] {
+  /** Returns the subject of this check. */
+  val checkee: Checkee[A]
 
-  def under(f: Mod[Int]): Check
-  def under(c: Circumstances): Check = under(c.mod)
+  /** Optionally returns the opponent of the checkee. */
+  val opponent: Option[Checkee[A]]
+
+  def copy(checkee: Checkee[A] = checkee, opponent: Option[Checkee[A]] = opponent): C
+
+  def vs(lvl: Int): C =
+    vs(Checkee("anonymous", checkee.checked, lvl))
+
+  def vs(lvl: Level[Int]): C =
+    vs(Checkee(lvl.description, checkee.checked, lvl.difficulty))
+
+  def vs(reactor: Checkee[A]): C =
+    copy(opponent = Some(reactor))
+
+  def under(mod: Mod[Int]): C = copy(checkee.copy(
+    description = checkee.description + "(before:" + checkee.value + ")",
+    value = mod(checkee.value)))
+
+  def under(c: Circumstances): C = copy(checkee.copy(
+    description = checkee.description + "(" + c.description + ")",
+    value = c.mod(checkee.value)))
 
   def result: Result
 
-  override def toString = result.toString
+  override def toString = checkee + " vs " + opponent + " --> " + result
 }

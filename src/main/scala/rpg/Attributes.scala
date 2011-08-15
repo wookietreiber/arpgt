@@ -33,7 +33,7 @@ package rpg
   *
   * @see [[rpg.Attribute]]
   */
-trait Attributes[A <: Attribute] {
+trait Attributes[A <: Attribute,C <: Check[A,C]] {
   /** Returns the value of the given attribute. */
   final def apply(a: A) = attrmap(a)
 
@@ -54,5 +54,5 @@ trait Attributes[A <: Attribute] {
   private var attrmap = Map[A,Int]() withDefault defaultAttributeValues
 
   /** Returns a check of the given attribute. */
-  def check(a: A): Check
+  def check(a: A): C
 }

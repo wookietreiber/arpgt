@@ -26,35 +26,17 @@
 
 package rpg
 
-case class AttributeCheck(
-    attribute: Attribute,
-    value: Int,
-    difficulty: Option[Int] = None,
-    mod: Option[Mod[Int]] = None)
-  extends Check {
+import Check._
 
-  def vs(difficulty: Int): AttributeCheck =
-    new AttributeCheck(attribute, value, Some(difficulty))
+// TODO heroes check sneak vs watchers
 
-  def under(f: Mod[Int]): AttributeCheck =
-    new AttributeCheck(attribute, value, difficulty, Some(f))
+case class TestCheck[A](
+    checkee: Checkee[A],
+    opponent: Option[Checkee[A]] = None)
+  extends Check[A,TestCheck[A]] {
 
-  def result = Succeeded()
-}
+  def copy(checkee: Checkee[A] = checkee, opponent: Option[Checkee[A]] = opponent) =
+    TestCheck(checkee, opponent)
 
-case class SkillCheck(
-    skill: Skill[TestAttribute],
-    value: Int,
-    difficulty: Option[Int] = None,
-    mod: Option[Mod[Int]] = None)
-    (val defaultAttributes: List[TestAttribute] = skill.defaultAttributes)
-  extends Check {
-
-  def vs(difficulty: Int) =
-    new SkillCheck(skill, value, Some(difficulty))()
-
-  def under(f: Mod[Int]) =
-    new SkillCheck(skill, value, difficulty, Some(f))()
-
-  def result = Succeeded()
+  override def result = Succeeded()
 }

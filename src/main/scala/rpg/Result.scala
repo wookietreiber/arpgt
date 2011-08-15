@@ -41,13 +41,7 @@ package rpg
   * @see [[rpg.Success]]
   * @see [[rpg.Failure]]
   */
-sealed abstract class Result {
-  /** Returns the description of this result. */
-  def description: String
-
-  /** Returns `description`. */
-  override def toString = description
-}
+sealed abstract class Result
 
 /** The acting party succeeded in any way.
   *
@@ -65,13 +59,13 @@ abstract class Success extends Result
 abstract class Failure extends Result
 
 /** The acting party is incapable of performing the check. */
-case class Incapable(description: String = "incapable") extends Failure
+case object Incapable extends Failure
 
 /** The acting party is inferior. */
-case class Inferior(description: String = "inferior") extends Failure
+case object Inferior extends Failure
 
 /** The acting party is superior. */
-case class Superior(description: String = "superior") extends Success
+case object Superior extends Success
 
 /** The acting party failed. */
 case class Failed(description: String = "failed") extends Failure

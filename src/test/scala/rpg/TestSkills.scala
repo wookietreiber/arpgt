@@ -26,14 +26,16 @@
 
 package rpg
 
+import Check._
+
 sealed abstract class TestSkill(val defaultAttributes: List[TestAttribute])
   extends Skill[TestAttribute]
 
 case object Running extends TestSkill(List(Stamina))
 
-class TestSkills(default: Int) extends Skills[TestAttribute,TestSkill] {
+class TestSkills(default: Int) extends Skills[TestAttribute,TestSkill,TestCheck[TestSkill]] {
   override lazy val defaultSkillValues = (s: TestSkill) => default
 
   override def check(s: TestSkill, using: List[TestAttribute]) =
-    new SkillCheck(s, skills(s))()
+    new TestCheck(Checkee("", s, skills(s)))
 }
