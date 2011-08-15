@@ -82,4 +82,8 @@ abstract class Check {
 
   def under(f: Mod[Int]): Check
   def under(c: Circumstances): Check = under(c.mod)
+
+  def result: Result
+
+  override def toString = result.toString
 }

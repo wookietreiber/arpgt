@@ -38,6 +38,8 @@ case class AttributeCheck(
 
   def under(f: Mod[Int]): AttributeCheck =
     new AttributeCheck(attribute, value, difficulty, Some(f))
+
+  def result = Succeeded()
 }
 
 case class SkillCheck(
@@ -53,4 +55,6 @@ case class SkillCheck(
 
   def under(f: Mod[Int]) =
     new SkillCheck(skill, value, difficulty, Some(f))()
+
+  def result = Succeeded()
 }

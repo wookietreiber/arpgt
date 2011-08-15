@@ -43,7 +43,7 @@ package rpg
   */
 sealed abstract class Result {
   /** Returns the description of this result. */
-  val description: String
+  def description: String
 
   /** Returns `description`. */
   override def toString = description

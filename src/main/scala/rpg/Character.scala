@@ -69,8 +69,13 @@ abstract class Character[A <: Attribute,S <: Skill[A]] {
 
   /** Returns a check of the given skill.
     *
-    * This is a convenience method, i.e. it just forwards to
-    * `skills.check(s)`.
+    * This is a convenience method, i.e. it just forwards t, `skills.check(s)`.
+    */
+  def check(s: S, using: List[A]) = skills.check(s, using)
+
+  /** Returns a check of the given skill.
+    *
+    * This is a convenience method, i.e. it just forwards to `skills.check(s)`.
     */
   def check(s: S) = skills.check(s)
 }

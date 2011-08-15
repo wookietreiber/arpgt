@@ -58,5 +58,8 @@ trait Skills[A <: Attribute,S <: Skill[A]] {
   private var skillmap = Map[S,Int]() withDefault defaultSkillValues
 
   /** Returns a check of the given skill. */
-  def check(s: S): Check
+  def check(s: S, using: List[A]): Check
+
+  /** Returns a check of the given skill. */
+  final def check(s: S): Check = check(s, s.defaultAttributes)
 }
