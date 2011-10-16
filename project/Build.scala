@@ -7,9 +7,9 @@ import BuildSettings._
 
 object BuildSettings {
   val buildOrganization = "arpgt"
-  val buildVersion      = "0.0.1"
+  val buildVersion      = "0.1"
   val buildScalaVersion = "2.9.1"
-  val akkaVersion       = "1.1.3"
+  val akkaVersion       = "1.2"
 
   val buildSettings = Defaults.defaultSettings ++ Seq (
     organization := buildOrganization,
@@ -26,8 +26,7 @@ object ArpgtBuild extends Build {
 
   lazy val root = Project ( "arpgt", file ("."),
     settings = buildSettings ++ Seq (
-      libraryDependencies ++= Seq ( akkaActor, specs2 ),
-      initialCommands := """import rpg._"""
+      libraryDependencies ++= Seq ( actor, specs2 )
     )
   )
 
@@ -39,7 +38,7 @@ object Dependencies {
   // compile
   // -----------------------------------------------------------------------
 
-  val akkaActor = "se.scalablesolutions.akka" % "akka-actor" % akkaVersion
+  val actor = "se.scalablesolutions.akka" % "akka-actor" % akkaVersion
 
   // -----------------------------------------------------------------------
   // test

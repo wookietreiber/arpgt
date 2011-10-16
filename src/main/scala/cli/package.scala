@@ -24,60 +24,23 @@
  ****************************************************************************/
 
 
-/** Contains an abstraction of the role-playing game (RPG) domain and provides a
-  * domain-specific language (DSL) for convenient usage.
-  *
-  * The abstraction is designed to make it fairly easy to implement the rules of
-  * a RPG, i.e. how an [[rpg.Attribute]] or [[rpg.Skill]] is checked.
-  */
-package object rpg {
+package rpg
 
-  // ----------------------------------------------------------------------
-  // actor aliases
-  // ----------------------------------------------------------------------
+/** Convenience stuff for the command line interface / the console. */
+package object cli {
 
-  /** Actor type. */
-  type Actor = akka.actor.Actor
+  class IntWrapper(amount: Int) {
+    def d(sides: Int): Seq[Int] = {
+      val die = Die(sides)
+      val shaker = Actor.actorOf[Shaker].start()
+      val results = (1 to amount) map { _ =>
+        (shaker ? die).as[Int].get
+      }
+      shaker.stop()
+      results
+    }
+  }
 
-  /** Actor factory. */
-  val Actor = akka.actor.Actor
-
-  /** Event handler used for logging. */
-  val EventHandler = akka.event.EventHandler
-
-  /** Convenience type that defines actor message behaviour. */
-  type Receive = Actor.Receive
-
-  // ----------------------------------------------------------------------
-  // function aliases
-  // ----------------------------------------------------------------------
-
-  /** Modifier function. */
-  type Mod[A] = A => A
-
-  // ----------------------------------------------------------------------
-  // common dice
-  // ----------------------------------------------------------------------
-
-  /** Returns a four-sided die. */
-  val D4 = Die(4)
-
-  /** Returns a six-sided die. */
-  val D6 = Die(6)
-
-  /** Returns an eight-sided die. */
-  val D8 = Die(8)
-
-  /** Returns a ten-sided die. */
-  val D10 = Die(10)
-
-  /** Returns a twelve-sided die. */
-  val D12 = Die(12)
-
-  /** Returns a twenty-sided die. */
-  val D20 = Die(20)
-
-  /** Returns a hundred-sided die. */
-  val D100 = Die(100)
+  implicit def int2intwrapper(i: Int) = new IntWrapper(i)
 
 }
