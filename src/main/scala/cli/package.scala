@@ -29,17 +29,22 @@ package rpg
 /** Convenience stuff for the command line interface / the console. */
 package object cli {
 
+  lazy val shaker = Actor.actorOf[Shaker].start()
+
+  // ----------------------------------------------------------------------
+  // wrapper
+  // ----------------------------------------------------------------------
+
   class IntWrapper(amount: Int) {
-    def d(sides: Int): Seq[Int] = {
+    def d (sides: Int) : Seq[Int] = {
       val die = Die(sides)
-      val shaker = Actor.actorOf[Shaker].start()
-      val results = (1 to amount) map { _ =>
-        (shaker ? die).as[Int].get
-      }
-      shaker.stop()
-      results
+      (1 to amount) map { _ => (shaker ? die).as[Int].get }
     }
   }
+
+  // ----------------------------------------------------------------------
+  // implicits
+  // ----------------------------------------------------------------------
 
   implicit def int2intwrapper(i: Int) = new IntWrapper(i)
 
