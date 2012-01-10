@@ -6,7 +6,7 @@ import Dependencies._
 import BuildSettings._
 
 object BuildSettings {
-  val buildOrganization = "com.github.wookietreiber"
+  val buildOrganization = "com.github.arpgt"
   val buildVersion      = "0.1"
   val buildScalaVersion = "2.9.1"
   val akkaVersion       = "1.2"
