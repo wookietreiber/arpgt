@@ -26,7 +26,11 @@ object ArpgtBuild extends Build {
 
   lazy val root = Project ( "arpgt", file ("."),
     settings = buildSettings ++ Seq (
-      libraryDependencies ++= Seq ( actor, specs2 )
+      libraryDependencies ++= Seq ( actor, specs2 ),
+      initialCommands in Compile in console := """
+        import rpg._
+        import cli._
+      """
     )
   )
 
