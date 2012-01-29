@@ -33,7 +33,7 @@ class ShakerSpec extends Specification {
     "accept dice and return the random result" in {
       val shaker = Actor.actorOf[Shaker].start()
 
-      val result = shaker !! new Die(scala.util.Random.nextInt(1024) + 2)
+      val result = (shaker ? new Die(Random.nextInt(1024) + 2)).as[Int]
 
       shaker.stop()
 

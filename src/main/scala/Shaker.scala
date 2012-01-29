@@ -32,7 +32,7 @@ package rpg
   */
 class Shaker extends Actor {
   /** Returns the random number generator. */
-  protected val random = new scala.util.Random
+  protected val random = new Random
 
   // -----------------------------------------------------------------------
   // message handling

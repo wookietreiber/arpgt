@@ -32,6 +32,9 @@
   */
 package object rpg {
 
+  type Random = scala.util.Random
+  val  Random = scala.util.Random
+
   // ----------------------------------------------------------------------
   // actor aliases
   // ----------------------------------------------------------------------
