@@ -1,6 +1,6 @@
 /* **************************************************************************
  *                                                                          *
- *  Copyright (C)  2011  Christian Krause                                   *
+ *  Copyright (C)  2011-2012  Christian Krause                              *
  *                                                                          *
  *  Christian Krause <kizkizzbangbang@googlemail.com>                       *
  *                                                                          *
@@ -32,8 +32,17 @@ package rpg
   *
   * @param sides sides of the die, has to be greater than or equal to 2
   */
-case class Die(sides: Int) {
+case class Die(sides: Int) extends Function0[Int] {
+
   require(sides >= 2, "Too few sides!")
 
-  override val toString = "D" + sides
+  /** Returns the result of rolling this die. */
+  override def apply() = Random.nextInt(sides) + 1
+
+  /** Returns the results of rolling this die `n` times. */
+  def roll(implicit n: Int = 1) = List.fill(n)(apply())
+
+  /** Returns `"d" + sides`. */
+  override val toString = "d" + sides
+
 }

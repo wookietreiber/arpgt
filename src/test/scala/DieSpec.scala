@@ -1,60 +1,48 @@
-/* **************************************************************************
- *                                                                          *
- *  Copyright (C)  2011  Christian Krause                                   *
- *                                                                          *
- *  Christian Krause <kizkizzbangbang@googlemail.com>                       *
- *                                                                          *
- ****************************************************************************
- *                                                                          *
- *  This file is part of 'arpgt'.                                           *
- *                                                                          *
- *  This project is free software: you can redistribute it and/or modify    *
- *  it under the terms of the GNU General Public License as published by    *
- *  the Free Software Foundation, either version 3 of the License, or       *
- *  any later version.                                                      *
- *                                                                          *
- *  This project is distributed in the hope that it will be useful,         *
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of          *
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           *
- *  GNU General Public License for more details.                            *
- *                                                                          *
- *  You should have received a copy of the GNU General Public License       *
- *  along with this project. If not, see <http://www.gnu.org/licenses/>.    *
- *                                                                          *
- ****************************************************************************/
-
-
 package rpg
 
-import org.specs2.mutable._
+import org.specs2._
 
-class DieSpec extends Specification {
-  "dice creation" should {
-    "fail with less than 2 sides" in {
-      new Die( 1 ) must throwAn [IllegalArgumentException]
-      new Die( 0 ) must throwAn [IllegalArgumentException]
-      new Die(-42) must throwAn [IllegalArgumentException]
-    }
+class DieSpec extends Specification { def is =
+
+  // -----------------------------------------------------------------------
+  // fragments
+  // -----------------------------------------------------------------------
+
+  "'Die' creation should"                                                     ^
+    "work for 2 or more 'sides'"            ! e1(2,6,20)                      ^
+    "fail otherwise"                        ! e2(1,0,-42)                     ^
+                                                                             p^
+  """'Die.toString' must match '("d"+s)'""" ! e3(6,20,100)                    ^
+                                                                             p^
+  "a 'Die' must be rollable"                ! e4                            ^t^
+    "return results between 1 and 'sides'"  ! e5                              ^
+                                                                            end
+  // -----------------------------------------------------------------------
+  // tests
+  // -----------------------------------------------------------------------
+
+  def e1(ss: Int*) = foreach(ss) { s =>
+    Die(s) must not (throwAn[IllegalArgumentException])
   }
 
-  "dice names" should {
-    "start with 'D'" in {
-      new Die(42).toString must startWith("D")
-    }
-
-    "end with their sides" in {
-      val anInt = 42
-      new Die(anInt).toString must endWith(anInt.toString)
-    }
+  def e2(ss: Int*) = foreach(ss) { s =>
+    Die(s) must throwAn[IllegalArgumentException]
   }
 
-  "dice with equal sides" should {
-    "equal one another" in {
-      new Die(42) == new Die(42)
-    }
-
-    "have an equal hash" in {
-      new Die(42).## == new Die(42).##
-    }
+  def e3(ss: Int*) = foreach(ss) { s =>
+    ("d"+s).r.unapplySeq(Die(s).toString) must beSome
   }
+
+  def e4 = Die(6)() must beBetween(1,6)
+
+  def e5 = foreach(Die(6) roll 1000) { x =>
+    x must beBetween(1,1000)
+  }
+
+  // -----------------------------------------------------------------------
+  // util
+  // -----------------------------------------------------------------------
+
+  def beBetween(i: Int, j: Int) = be_>=(i) and be_<=(j)
+
 }

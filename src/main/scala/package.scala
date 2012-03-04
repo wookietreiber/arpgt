@@ -1,6 +1,6 @@
 /* **************************************************************************
  *                                                                          *
- *  Copyright (C)  2011  Christian Krause                                   *
+ *  Copyright (C)  2011-2012  Christian Krause                              *
  *                                                                          *
  *  Christian Krause <kizkizzbangbang@googlemail.com>                       *
  *                                                                          *
@@ -36,22 +36,6 @@ package object rpg {
   val  Random = scala.util.Random
 
   // ----------------------------------------------------------------------
-  // actor aliases
-  // ----------------------------------------------------------------------
-
-  /** Actor type. */
-  type Actor = akka.actor.Actor
-
-  /** Actor factory. */
-  val Actor = akka.actor.Actor
-
-  /** Event handler used for logging. */
-  val EventHandler = akka.event.EventHandler
-
-  /** Convenience type that defines actor message behaviour. */
-  type Receive = Actor.Receive
-
-  // ----------------------------------------------------------------------
   // function aliases
   // ----------------------------------------------------------------------
 
@@ -62,25 +46,28 @@ package object rpg {
   // common dice
   // ----------------------------------------------------------------------
 
+  /** Returns a three-sided die. */
+  val d3 = Die(3)
+
   /** Returns a four-sided die. */
-  val D4 = Die(4)
+  val d4 = Die(4)
 
   /** Returns a six-sided die. */
-  val D6 = Die(6)
+  val d6 = Die(6)
 
   /** Returns an eight-sided die. */
-  val D8 = Die(8)
+  val d8 = Die(8)
 
   /** Returns a ten-sided die. */
-  val D10 = Die(10)
+  val d10 = Die(10)
 
   /** Returns a twelve-sided die. */
-  val D12 = Die(12)
+  val d12 = Die(12)
 
   /** Returns a twenty-sided die. */
-  val D20 = Die(20)
+  val d20 = Die(20)
 
   /** Returns a hundred-sided die. */
-  val D100 = Die(100)
+  val d100 = Die(100)
 
 }
