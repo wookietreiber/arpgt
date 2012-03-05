@@ -26,7 +26,9 @@ class DieSpec extends Specification { def is =
   }
 
   def e2(ss: Int*) = foreach(ss) { s =>
-    Die(s) must throwAn[IllegalArgumentException]
+    Die(s) must throwAn[IllegalArgumentException] {
+      Die.sidesErrorMessage
+    }
   }
 
   def e3(ss: Int*) = foreach(ss) { s =>

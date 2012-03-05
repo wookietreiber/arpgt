@@ -26,6 +26,10 @@
 
 package rpg
 
+object Die {
+  private[rpg] lazy val sidesErrorMessage = "Too few sides."
+}
+
 /** An x-sided die.
   *
   * Most common dice are already defined as vals in `package object rpg`.
@@ -34,7 +38,7 @@ package rpg
   */
 case class Die(sides: Int) extends Function0[Int] {
 
-  require(sides >= 2, "Too few sides!")
+  require(sides >= 2, Die.sidesErrorMessage)
 
   /** Returns the result of rolling this die. */
   override def apply() = Random.nextInt(sides) + 1
