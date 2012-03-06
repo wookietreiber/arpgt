@@ -36,7 +36,7 @@ object Die {
   *
   * @param sides sides of the die, has to be greater than or equal to 2
   */
-case class Die(sides: Int) extends Function0[Int] {
+case class Die(sides: Int) extends (() => Int) {
 
   require(sides >= 2, Die.sidesErrorMessage)
 
