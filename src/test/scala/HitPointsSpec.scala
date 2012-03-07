@@ -1,20 +1,30 @@
 package rpg
 
-import org.specs2.mutable._
+import HitPoints._
 
-class HitPointsSpec extends Specification {
-  import HitPoints._
+import org.specs2._
 
-  implicit val maxhp = 42
-  implicit val dmg   = Damage(10)
-  val life = 4
+class HitPointsSpec extends Specification { def is =
 
-  """a "HitPoints" implementation""" should {
-    "get hurt and healed correctly" in {
-      val impl = new Test.HitPoints(42)
-      impl.hurt
-      impl heal life
-      impl.hp must_== (maxhp - dmg.amount + life)
-    }
+  // -----------------------------------------------------------------------
+  // fragments
+  // -----------------------------------------------------------------------
+
+  "A 'HitPoints' implementation should"                                       ^
+    "get hurt and healed correctly"         ! e1                              ^
+                                                                            end
+  // -----------------------------------------------------------------------
+  // tests
+  // -----------------------------------------------------------------------
+
+  def e1 = {
+    val maxhp = 42
+    val dmg   = Damage(10)
+    val life  = Life(4)
+
+    val hitPoints = new Test.HitPoints(42)
+    hitPoints hurt dmg
+    hitPoints heal life
+    hitPoints.hp must_== (maxhp - dmg.amount + life.amount)
   }
 }
