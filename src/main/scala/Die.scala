@@ -36,12 +36,12 @@ object Die {
   *
   * @param sides sides of the die, has to be greater than or equal to 2
   */
-case class Die(sides: Int) extends (() => Int) {
+case class Die(sides: Int) extends Random with (() => Int) {
 
   require(sides >= 2, Die.sidesErrorMessage)
 
   /** Returns the result of rolling this die. */
-  override def apply() = Random.nextInt(sides) + 1
+  override def apply() = nextInt(sides) + 1
 
   /** Returns the results of rolling this die `n` times. */
   def roll(implicit n: Int = 1) = List.fill(n)(apply())
