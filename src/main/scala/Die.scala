@@ -47,7 +47,7 @@ object Die {
   *
   * @param  sides  sides of this die
   */
-case class Die(sides: Int) extends Random with (() => Int) {
+case class Die(sides: Int) extends util.Random with (() => Int) {
 
   require(sides >= 2, Die.sidesErrorMessage)
 
