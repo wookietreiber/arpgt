@@ -30,23 +30,31 @@ object Die {
   private[rpg] lazy val sidesErrorMessage = "Too few sides."
 }
 
-/** An x-sided die.
+/** A die that can be rolled.
   *
-  * Most common dice are already defined as vals in `package object rpg`.
+  * Common dice are defined in package object [[rpg]] so you can easily use them:
   *
-  * @param sides sides of the die, has to be greater than or equal to 2
+  * {{{
+  * scala> import rpg._
+  * import rpg._
+  *
+  * scala> d6 roll 20
+  * res0: List[Int] = List(1, 4, 2, 1, 4, 4, 3, 1, 6, 3, 4, 2, 1, 2, 5, 3, 6, 2, 6, 6)
+  *
+  * scala> d20 roll 3
+  * res1: List[Int] = List(8, 11, 8)
+  * }}}
+  *
+  * @param  sides  sides of this die
   */
 case class Die(sides: Int) extends Random with (() => Int) {
 
   require(sides >= 2, Die.sidesErrorMessage)
 
   /** Returns the result of rolling this die. */
-  override def apply() = nextInt(sides) + 1
+  override def apply(): Int = nextInt(sides) + 1
 
   /** Returns the results of rolling this die `n` times. */
-  def roll(implicit n: Int = 1) = List.fill(n)(apply())
-
-  /** Returns `"d" + sides`. */
-  override val toString = "d" + sides
+  def roll(implicit n: Int = 1): List[Int] = List.fill(n)(apply())
 
 }

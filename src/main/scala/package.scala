@@ -47,27 +47,27 @@ package object rpg {
   // ----------------------------------------------------------------------
 
   /** Returns a three-sided die. */
-  val d3 = Die(3)
+  lazy val d3 = Die(3)
 
   /** Returns a four-sided die. */
-  val d4 = Die(4)
+  lazy val d4 = Die(4)
 
   /** Returns a six-sided die. */
-  val d6 = Die(6)
+  lazy val d6 = Die(6)
 
   /** Returns an eight-sided die. */
-  val d8 = Die(8)
+  lazy val d8 = Die(8)
 
   /** Returns a ten-sided die. */
-  val d10 = Die(10)
+  lazy val d10 = Die(10)
 
   /** Returns a twelve-sided die. */
-  val d12 = Die(12)
+  lazy val d12 = Die(12)
 
   /** Returns a twenty-sided die. */
-  val d20 = Die(20)
+  lazy val d20 = Die(20)
 
   /** Returns a hundred-sided die. */
-  val d100 = Die(100)
+  lazy val d100 = Die(100)
 
 }
