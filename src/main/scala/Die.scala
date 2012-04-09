@@ -51,10 +51,32 @@ case class Die(sides: Int) extends Random with (() => Int) {
 
   require(sides >= 2, Die.sidesErrorMessage)
 
-  /** Returns the result of rolling this die. */
+  /** Returns the result of rolling this die once. */
   override def apply(): Int = nextInt(sides) + 1
 
-  /** Returns the results of rolling this die `n` times. */
+  /** Returns the results of rolling this die `n` times.
+    *
+    * The implicit parameter lets you use this method without parameters, though you might have a
+    * problem with it returning a single result wrapped in a `List`. If you want to get just the
+    * result, you will have to use apply:
+    *
+    * {{{
+    * scala> import rpg._
+    * import rpg._
+    *
+    * scala> d6 roll 3
+    * res0: List[Int] = List(3, 1, 5)
+    *
+    * scala> d6 roll
+    * res1: List[Int] = List(4)
+    *
+    * scala> d6.apply
+    * res2: Int = 5
+    *
+    * scala> d6()
+    * res3: Int = 2
+    * }}}
+    */
   def roll(implicit n: Int = 1): List[Int] = List.fill(n)(apply())
 
 }
