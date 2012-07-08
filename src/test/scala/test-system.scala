@@ -15,7 +15,7 @@ object Test {
   case object Stamina extends Attribute
 
   class Attributes(default: Int) extends rpg.Attributes[Attribute,Check[Attribute]] {
-    override lazy val defaultAttributeValues = (a: Attribute) => default
+    override lazy val defaultAttributeValues = (a: Attribute) ⇒ default
     def check(a: Attribute) = new Check(Checkee("", a, attributes(a)))
   }
 
@@ -29,7 +29,7 @@ object Test {
   case object Running extends Skill(List(Stamina))
 
   class Skills(default: Int) extends rpg.Skills[Attribute,Skill,Check[Skill]] {
-    override lazy val defaultSkillValues = (s: Skill) => default
+    override lazy val defaultSkillValues = (s: Skill) ⇒ default
 
     override def check(s: Skill, using: List[Attribute]) =
       new Check(Checkee("", s, skills(s)))

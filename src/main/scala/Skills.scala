@@ -43,7 +43,7 @@ trait Skills[A <: Attribute,S <: Skill[A],C <: Check[S,C]] {
 
   /** Modifies the value of the given skill. */
   final def mod(s: S, mod: Mod[Int] = _ + 1) {
-    skillmap += (s -> mod(skillmap(s)))
+    skillmap += (s → mod(skillmap(s)))
   }
 
   /** Returns the skill to value map. */
@@ -52,7 +52,7 @@ trait Skills[A <: Attribute,S <: Skill[A],C <: Check[S,C]] {
   /** Returns the default skill to value function. If you want to override it
     * with a `val` make it a `lazy val`!
     */
-  def defaultSkillValues: S => Int
+  def defaultSkillValues: S ⇒ Int
 
   /** Returns the skill to value map. */
   private var skillmap = Map[S,Int]() withDefault defaultSkillValues

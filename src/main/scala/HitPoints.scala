@@ -34,7 +34,7 @@ object HitPoints {
   // -------------------------------------------------------------------
 
   /** Message wrapping hit-points. */
-  case class HP(value: Int) extends (() => Int) {
+  case class HP(value: Int) extends (() ⇒ Int) {
     /** Returns `value`. */
     override def apply() = value
   }

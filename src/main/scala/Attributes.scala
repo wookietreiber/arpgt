@@ -39,7 +39,7 @@ trait Attributes[A <: Attribute,C <: Check[A,C]] {
 
   /** Modifies the value of the given attribute. */
   final def mod(a: A, mod: Mod[Int] = _ + 1) {
-    attrmap += (a -> mod(attrmap(a)))
+    attrmap += (a → mod(attrmap(a)))
   }
 
   /** Returns the attribute to value map. */
@@ -48,7 +48,7 @@ trait Attributes[A <: Attribute,C <: Check[A,C]] {
   /** Returns the default attribute to value function. If you want to override
     * it with a `val` make it a `lazy val`!
     */
-  def defaultAttributeValues: A => Int
+  def defaultAttributeValues: A ⇒ Int
 
   /** Returns the attribute to value map. */
   private var attrmap = Map[A,Int]() withDefault defaultAttributeValues
