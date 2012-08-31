@@ -1,25 +1,45 @@
 package rpg
 
-import org.specs2.mutable._
-import Check._
+import org.specs2._
 
-class CharacterChecksSpec extends Specification {
-  "DSL check syntax" should {
-    "work" in {
-      val bob = new Test.Character("Bob")
-      (
-        bob check Test.Running vs 2 under { _ - 3 }
-      ) must beAnInstanceOf[Check[Test.Skill,Test.Check[Test.Skill]]]
-    }
+class CharacterChecksSpec extends Specification { def is =
+
+  // -----------------------------------------------------------------------------------------------
+  // fragments
+  // -----------------------------------------------------------------------------------------------
+
+  "simple checks should work in"                                                                   ^
+    "simple attribute checks"                                                ! e1                  ^
+    "simple skill checks"                                                    ! e2                  ^
+                                                                                                 end
+  // -----------------------------------------------------------------------------------------------
+  // tests
+  // -----------------------------------------------------------------------------------------------
+
+  import Test._
+
+  def e1 = {
+    val bob = new Character("Bob")
+    val res = bob check Stamina
+    res must beAnInstanceOf[Result]
   }
 
-  "DSL check syntax" should {
-    "work" in {
-      val bob = new Test.Character("Bob")
-      (
-        // TODO no function type at circumstances
-        bob check Test.Running vs Level(2, "jogger") under Circumstances(_ - 3, "limps")
-      ) must beAnInstanceOf[Check[Test.Skill,Test.Check[Test.Skill]]]
-    }
+  def e2 = {
+    val bob = new Character("Bob")
+    val res = bob check Running
+    res must beAnInstanceOf[Result]
   }
+/*
+  def ey = {
+    val bob = new Character("Bob")
+    val res = bob check Running vs 2 under { _ - 3 }
+    res must beAnInstanceOf[?]
+  }
+*//*
+  def ez = {
+    val bob = new Character("Bob")
+    val res = bob check Running vs Level(2, "jogger") under Circumstances("limps") { _ - 3 }
+    res must beAnInstanceOf[?]
+  }
+*/
 }

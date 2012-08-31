@@ -1,64 +1,39 @@
 package rpg
 
-import Check._
+import Result._
 
 object Test {
 
-  class HitPoints(val maxhp: Int) extends rpg.HitPoints
+  case class Attribute(name: String)
+    extends rpg.Attribute
 
-  // -----------------------------------------------------------------------
-  // attributes
-  // -----------------------------------------------------------------------
-
-  sealed abstract class Attribute extends rpg.Attribute
-
-  case object Stamina extends Attribute
-
-  class Attributes(default: Int) extends rpg.Attributes[Attribute,Check[Attribute]] {
-    override lazy val defaultAttributeValues = (a: Attribute) ⇒ default
-    def check(a: Attribute) = new Check(Checkee("", a, attributes(a)))
-  }
-
-  // -----------------------------------------------------------------------
-  // skills
-  // -----------------------------------------------------------------------
-
-  sealed abstract class Skill(val defaultAttributes: List[Attribute])
+  case class Skill(name: String, defaultAttributes: Seq[Attribute])
     extends rpg.Skill[Attribute]
 
-  case object Running extends Skill(List(Stamina))
-
-  class Skills(default: Int) extends rpg.Skills[Attribute,Skill,Check[Skill]] {
-    override lazy val defaultSkillValues = (s: Skill) ⇒ default
-
-    override def check(s: Skill, using: List[Attribute]) =
-      new Check(Checkee("", s, skills(s)))
+  trait Attributes extends rpg.Attributes[Attribute] {
+    def defaultAttributeValues = { _ ⇒ 8 }
   }
 
-  // -----------------------------------------------------------------------
-  // checking
-  // -----------------------------------------------------------------------
-
-  case class Check[A](
-      checkee: Checkee[A],
-      opponent: Option[Checkee[A]] = None)
-    extends rpg.Check[A,Check[A]] {
-
-    def copy(checkee: Checkee[A] = checkee, opponent: Option[Checkee[A]] = opponent) =
-      Check(checkee, opponent)
-
-    override def result = Succeeded()
+  trait Skills extends rpg.Skills[Attribute,Skill] {
+    def defaultSkillValues = { _ ⇒ 0 }
   }
 
-  // -----------------------------------------------------------------------
-  // character
-  // -----------------------------------------------------------------------
-
-  class Character(val name: String)
-    extends rpg.Character[Attribute,Skill,Check[Attribute],Check[Skill]] {
-
-    override val attributes = new Attributes(2)
-    override val hitpoints = new HitPoints(42)
-    override val skills = new Skills(-1)
+  trait HitPoints extends rpg.HitPoints {
+    def maxhp = 42
   }
+
+  case class Character(name: String) extends rpg.Character[Attribute,Skill,Character]
+    with Attributes with Skills with HitPoints
+
+  val Stamina = Attribute("Stamina")
+  val Running = Skill("Running", Seq(Stamina))
+
+  implicit val AttributeCheck = new CharacterCheck[Attribute,Character] {
+    def check(c: Character, a: Attribute) = Tie()
+  }
+
+  implicit val SkillCheck = new CharacterCheck[Skill,Character] {
+    def check(c: Character, s: Skill) = Tie()
+  }
+
 }

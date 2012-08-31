@@ -24,29 +24,47 @@
 
 package rpg
 
-/** Base class for characters.
+/** Represents the outcome of a check.
   *
-  * @tparam A the used attribute type (default attributes of skills)
-  * @tparam S the used skill type
-  * @tparam C the character type itself
+  * @see [[rpg.Result.Success]]
+  * @see [[rpg.Result.Failure]]
+  * @see [[rpg.Result.Tie]]
   */
-abstract class Character[A <: Attribute,S <: Skill[A],C <: Character[A,S,C]] {
-  self: C with Attributes[A] with Skills[A,S] with HitPoints ⇒
+sealed abstract class Result
 
-  /** Returns this characters name. */
-  def name: String
+object Result {
 
-  /** Returns `name`. */
-  override def toString = name
-
-  /** Returns the result of a check of a certain aspect of the character.
+  /** The acting party succeeded in any way.
     *
-    * @tparam X the type aspect that is checked
-    *
-    * @param x the aspect of the character to check
-    * @param c the instance that performs the check
+    * @see [[rpg.Result.Succeeded]]
+    * @see [[rpg.Result.Superior]]
     */
-  def check[X](x: X)(implicit c: CharacterCheck[X,C]) =
-    c.check(this, x)
+  abstract class Success extends Result
+
+  /** The acting party failed in any way.
+    *
+    * @see [[rpg.Result.Failed]]
+    * @see [[rpg.Result.Inferior]]
+    * @see [[rpg.Result.Incapable]]
+    */
+  abstract class Failure extends Result
+
+  /** The acting party performs as well as the reacting party. */
+  case class Tie(description: String = "a tie") extends Result
+
+  /** The acting party is incapable of performing the check. */
+  case class Incapable(description: String = "unable to perform") extends Failure
+
+  /** The acting party is inferior. */
+  case class Inferior(description: String = "cannot win") extends Failure
+
+  /** The acting party is superior. */
+  case class Superior(description: String = "cannot lose") extends Success
+
+  /** The acting party failed. */
+  case class Failed(description: String = "failed") extends Failure
+
+  /** The acting party succeeded. */
+  case class Succeeded(description: String = "succeeded") extends Success
 
 }

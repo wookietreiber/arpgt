@@ -4,22 +4,22 @@ import org.specs2._
 
 class DieSpec extends Specification { def is =
 
-  // -----------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------
   // fragments
-  // -----------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------
 
-  "a 'Die' should have at least 2 'sides', i.e."                              ^
-    "its creation should work with 2 or more 'sides'"   ! e1(2,6,20)          ^
-    "and fail otherwise"                                ! e2(1,0,-42)         ^
-                                                                             p^
-  "a 'Die' should be rollable, i.e."                                          ^
-    "be a function of '() ⇒ Int'"                       ! e3                  ^
-    "when used return values from '1' to 'sides'"       ! e4                  ^
-    "provide a 'roll n times' method"                   ! e5                  ^
-                                                                            end
-  // -----------------------------------------------------------------------
+  "a 'Die' should have at least 2 'sides', i.e."                                                   ^
+    "its creation should work with 2 or more 'sides'"                        ! e1(2,6,20)          ^
+    "and fail otherwise"                                                     ! e2(1,0,-42)         ^
+                                                                                                  p^
+  "a 'Die' should be rollable, i.e."                                                               ^
+    "be a function of '() ⇒ Int'"                                            ! e3                  ^
+    "when used return values from '1' to 'sides'"                            ! e4                  ^
+    "provide a 'roll n times' method"                                        ! e5                  ^
+                                                                                                 end
+  // -----------------------------------------------------------------------------------------------
   // tests
-  // -----------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------
 
   def e1(ss: Int*) = foreach(ss) { s ⇒
     Die(s) must not {
