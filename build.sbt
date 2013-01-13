@@ -5,10 +5,10 @@ organization := "com.github.wookietreiber.arpgt"
 
 version := "0.1.0-SNAPSHOT"
 
-scalaVersion := "2.10.0-RC2"
+scalaVersion := "2.10.0"
 
 libraryDependencies ++= Seq (
-  "org.specs2" % "specs2" % "1.12.2" % "test" cross CrossVersion.full
+  "org.specs2" %% "specs2" % "1.13" % "test"
 )
 
 initialCommands in (Compile, consoleQuick) <<= initialCommands in Compile
