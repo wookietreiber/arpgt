@@ -38,10 +38,10 @@ package rpg
 trait Skills[A <: Attribute,S <: Skill[A]] {
 
   /** Returns the skill to value map. */
-  private var skillmap = Map[S,Int]() withDefault defaultSkillValues
+  private var skillmap: Map[S,Int] = Map[S,Int]() withDefault defaultSkillValues
 
   /** Returns the value of the given skill. */
-  final def apply(s: S) = skillmap(s)
+  final def apply(s: S): Int = skillmap(s)
 
   /** Modifies the value of the given skill. */
   final def mod(s: S)(mod: Mod[Int]) {
@@ -49,7 +49,7 @@ trait Skills[A <: Attribute,S <: Skill[A]] {
   }
 
   /** Returns the skill to value map. */
-  final def skills = skillmap
+  final def skills: Map[S,Int] = skillmap
 
   /** Returns the default skill to value function. If you want to override it
     * with a `val` make it a `lazy val`!

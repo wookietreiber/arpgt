@@ -53,10 +53,10 @@ object HitPoints {
   // -----------------------------------------------------------------------------------------------
 
   /** Converts an `Int` to [[rpg.HitPoints.Damage]]. */
-  implicit def int2Damage(amount: Int) = Damage(amount)
+  implicit def int2Damage(amount: Int): Damage = Damage(amount)
 
   /** Converts an `Int` to [[rpg.HitPoints.Life]]. */
-  implicit def int2Life(amount: Int) = Life(amount)
+  implicit def int2Life(amount: Int): Life = Life(amount)
 
 }
 
@@ -74,10 +74,10 @@ trait HitPoints {
   // -----------------------------------------------------------------------------------------------
 
   /** Returns current hit-points, initialised with `maxhp`. */
-  private var curhp = maxhp
+  private var curhp: Int = maxhp
 
   /** Returns current hit-points. */
-  def hp = curhp
+  def hp: Int = curhp
 
   /** Current hit-points mutator. */
   def hp_=(hp: Int) {
@@ -89,7 +89,7 @@ trait HitPoints {
   // -----------------------------------------------------------------------------------------------
 
   /** Returns current hit-points wrapped in [[rpg.HitPoints.HP]]. */
-  def apply() = HP(hp)
+  def apply(): HP = HP(hp)
 
   /** Decreases hit-points by given amount of damage and returns the result. */
   def hurt(dmg: Damage) = {

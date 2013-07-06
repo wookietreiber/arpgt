@@ -37,7 +37,7 @@ abstract class Character[A <: Attribute,S <: Skill[A],C <: Character[A,S,C]] {
   def name: String
 
   /** Returns `name`. */
-  override def toString = name
+  override def toString: String = name
 
   /** Returns the result of a check of a certain aspect of the character.
     *
@@ -46,7 +46,7 @@ abstract class Character[A <: Attribute,S <: Skill[A],C <: Character[A,S,C]] {
     * @param x the aspect of the character to check
     * @param c the instance that performs the check
     */
-  def check[X](x: X)(implicit c: CharacterCheck[X,C]) =
+  def check[X](x: X)(implicit c: CharacterCheck[X,C]): Result =
     c.check(this, x)
 
 }

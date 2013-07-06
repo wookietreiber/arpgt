@@ -65,7 +65,7 @@ case class Die(sides: Int) extends util.Random with (() ⇒ Int) {
     * scala> d6 roll 3
     * res0: Seq[Int] = Vector(3, 1, 5)
     *
-    * scala> d6 roll
+    * scala> d6.roll
     * res1: Seq[Int] = Vector(4)
     *
     * scala> d6.apply
@@ -75,6 +75,6 @@ case class Die(sides: Int) extends util.Random with (() ⇒ Int) {
     * res3: Int = 2
     * }}}
     */
-  def roll(implicit n: Int = 1): Seq[Int] = Vector.fill(n) { apply() }
+  def roll(implicit n: Int = 1): collection.immutable.Seq[Int] = Vector.fill(n) { apply() }
 
 }
