@@ -99,10 +99,16 @@ Ein Konflikt birgt immer das Risiko von Änderungen der [Verfassung](#Verfassung
     gerade wie sehr die Oberhand hat. Die Dominanz äußert sich regeltechnisch in einer Beeinflussung
     von Probenwerten durch einen Modifikator.
 
-
 **Konfliktprobe**
-:   Eine *Konfliktprobe* ist eine Probe, deren Ziel eine Veränderung der Dominanz oder der
-    Verfassung des Kontrahenten ist.
+:   Eine *Konfliktprobe* ist eine vergleichende Probe, deren Ziel eine Veränderung der Dominanz oder
+    der Verfassung des Kontrahenten ist.
+
+    Bei einer Konfliktprobe gibt es, unabhängig von der Fähigkeitsdifferenz der Akteure, keine
+    nullprozentige oder hunderprozentige Erfolgswahrscheinlichkeit. Ein geringes, aber nicht
+    vernachlässigbares Risiko ist immer gegeben.
+
+    Ein Konflikt beinhaltet hinreichend viele Konfliktproben, um, gemessen an den Fähigkeiten der
+    Akteure, grundsätzlich vorhersehbar zu sein.
 
 ### Konfliktlösung
 
@@ -110,12 +116,15 @@ Ein hinreichend hohes Dominanzniveau führt automatisch zur Lösung des Konflikt
 hoher Dominanzmodifikator einen garantierten Erfolg einer Konfliktprobe erzwingen kann.
 
 *Ist man beispielsweise in einem Kampf so weit in die Enge getrieben worden, dass man aufgeben muss,
-verliert man die entsprechende geistige Konfliktprobe garantiert. Dabei wurde der initiale
-körperliche Konflikt in einen geistigen umgewandelt.*
+ist der Modifikator durch die Dominanz des Gegenübers so ungünstig, dass man seine Konfliktprobe(n)
+nicht mehr schaffen kann.*
 
 ### Akteure
 
 Bei einem *Akteur* muss es sich nicht zwangsweise um eine einzelne Person handeln.
+
+*mehrere im Kampf Formation, kann diese Gruppe als ein Akteur angesehen werden. anderes Beispiel bei
+mehreren Diskussionspartnern bei einer Überzeugungsarbeit*
 
 Bei mehr als zwei Akteuren gibt es zwischen jeweils zwei Akteuren einen Dominanzwert.
 
@@ -128,7 +137,14 @@ jeweiligen Werte ergibt.*
 Eine Realisierung kann verschiedene Konflikt-Systeme anbieten, bspw. zur Lösung von Kampfhandlungen,
 politischen Diskussionen oder geistigen Duellen.
 
-Ein Konflikt-System ist dazu in der Lage, verschiedene Taktiken / Herangehensweisen abzubilden.
+Ein Konflikt-System ist dazu in der Lage, verschiedene Taktiken / Herangehensweisen abzubilden
+([Feats](#Feats)).
+
+Ein Konflikt-System ermöglicht es, die Art des Konfliktes fließend zu variieren, wobei die Dominanz
+dabei übertragen werden kann.
+
+*Indem man einen in die Enge getriebenen Gegner dazu auffordert, aufzugeben, wandelt man einen
+körperlichen Konflikt in einen geistigen oder sozialen um.*
 
 
 # Verfassung {#Verfassung}
@@ -168,4 +184,40 @@ Die Verfassung definiert sich aus der Summe der vorhandenen Verletzungen und Zus
 
 # Umgang mit übernatürlichen Fähigkeiten
 
-TODO
+Die Kosten der Anwendung übernatürlicher Fähigkeiten werden über eine Veränderung der Verfassung
+ausgedrückt. Es gibt keine übernatürliche Ressource, wie Astralpunkte, Mana, Karmaenergie, etc.
+
+funktioniert wie talente
+
+
+# Generierung und Steigerung
+
+Generierung und Steigerung laufen nach dem gleichen Prinzip ab und verwenden die gleiche Ressource.
+
+Generierung und Steigerung sind frei. Es gibt keine Pakete und keine Rabatte. Steigerungen sind
+assoziativ $(a + b) + c = a + (b + c)$ und kommutativ $a + b = b + a$.
+
+*Es gibt keinen billigeren Weg zu steigern.*
+
+(Jedem Charakter wird eine feste Anzahl von frei wählbaren Vor- und Nachteilen zugeordnet.)
+
+*alles andere: Charakter ausspielen + Flags*
+
+
+
+# bla
+
+Liste von Werten nach Schema F wie oben, charakterisiert Beziehung zu Umwelt, zur Generierung mit SP
+festgelegt, dann ändert sich nur als Resultat von dem was in abenteuren passiert
+
+
+
+# Feats {#Feats}
+
+- ausschließlich zum Ausdruck von Taktiken bei Konflikten
+- du kannst die nennen wie de willst, aber es muss einen festen wechselkurs geben (vergleichbarkeit)
+  und es muss sich mit folgenden dingen auseinandersetzen
+  - verfassung inklusive zustand
+  - modifikator f. konfliktprobe
+  - dominanz
+
