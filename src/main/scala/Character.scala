@@ -31,7 +31,8 @@ package rpg
   * @tparam C the character type itself
   */
 abstract class Character[A <: Attribute,S <: Skill[A],C <: Character[A,S,C]] {
-  self: C with Attributes[A] with Skills[A,S] with HitPoints ⇒
+
+  self: C with Attributes[A] with Skills[A,S] ⇒
 
   /** Returns this characters name. */
   def name: String
