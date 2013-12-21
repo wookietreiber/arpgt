@@ -4,27 +4,38 @@ import HitPoints._
 
 import org.specs2._
 
-class HitPointsSpec extends Specification { def is =
+class HitPointsSpec extends Specification { def is = s2"""
 
-  // -----------------------------------------------------------------------------------------------
-  // fragments
-  // -----------------------------------------------------------------------------------------------
+  Hit Points Specification
 
-  "A 'HitPoints' implementation should"                                                            ^
-    "get hurt and healed correctly"                                             ! e1               ^
-                                                                                                 end
+  a 'HitPoints' implementation should
+    get hurt correctly                                                                    $e1
+    get healed correctly                                                                  $e2
+                                                                                                 """
   // -----------------------------------------------------------------------------------------------
   // tests
   // -----------------------------------------------------------------------------------------------
 
   def e1 = {
-    val maxhp = 42
-    val dmg   = Damage(10)
-    val life  = Life(4)
+    val hp = new Test.HitPoints {}
 
-    val hitPoints = new Test.HitPoints {}
-    hitPoints hurt dmg
-    hitPoints heal life
-    hitPoints.hp must_== (maxhp - dmg.amount + life.amount)
+    val maxhp = hp.maxhp
+    val dmg   = 10
+
+    hp hurt dmg
+    hp.hp must_== (maxhp - dmg)
   }
+
+  def e2 = {
+    val hp = new Test.HitPoints {}
+
+    val maxhp = hp.maxhp
+    val dmg   = 10
+    val life  = 4
+
+    hp hurt dmg
+    hp heal life
+    hp.hp must_== (maxhp - dmg + life)
+  }
+
 }

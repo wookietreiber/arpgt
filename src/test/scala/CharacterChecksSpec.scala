@@ -2,16 +2,14 @@ package rpg
 
 import org.specs2._
 
-class CharacterChecksSpec extends Specification { def is =
+class CharacterChecksSpec extends Specification { def is = s2"""
 
-  // -----------------------------------------------------------------------------------------------
-  // fragments
-  // -----------------------------------------------------------------------------------------------
+  Character Check Specification
 
-  "simple checks should work in"                                                                   ^
-    "simple attribute checks"                                                ! e1                  ^
-    "simple skill checks"                                                    ! e2                  ^
-                                                                                                 end
+  simple checks should work in
+    simple attribute checks                                                               $e1
+    simple skill checks                                                                   $e2
+                                                                                                 """
   // -----------------------------------------------------------------------------------------------
   // tests
   // -----------------------------------------------------------------------------------------------
