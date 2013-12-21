@@ -42,6 +42,7 @@ import HitPoints._
   *
   * @todo low hit-point modificator
   * @todo damage - armor
+  * @todo not heal over maxhp (unless explicitly specified)
   */
 trait HitPoints {
 
