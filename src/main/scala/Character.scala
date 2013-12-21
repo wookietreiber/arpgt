@@ -45,9 +45,19 @@ abstract class Character[A <: Attribute,S <: Skill[A],C <: Character[A,S,C]] {
     * @tparam X the type aspect that is checked
     *
     * @param x the aspect of the character to check
-    * @param c the instance that performs the check
+    * @param C the instance that performs the check
     */
-  def check[X](x: X)(implicit c: CharacterCheck[X,C]): Result =
-    c.check(this, x)
+  def check[X](x: X)(implicit C: CharacterCheck[X,C]): Result =
+    C.check(this, x)
+
+  /** Returns a value of a certain aspect of the character.
+    *
+    * @tparam X the type aspect
+    *
+    * @param x the aspect of the character to get
+    * @param G the instance that performs the get
+    */
+  def get[X](x: X)(implicit G: CharacterGetter[X,C]): Option[Int] =
+    G.get(this, x)
 
 }
