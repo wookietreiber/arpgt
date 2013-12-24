@@ -7,7 +7,7 @@ version := "0.1.0-SNAPSHOT"
 scalaVersion := "2.10.3"
 
 libraryDependencies ++= Seq (
-  "org.specs2" %% "specs2-core" % "2.3.6" % "test"
+  "org.specs2" %% "specs2-scalacheck" % "2.3.6" % "test"
 )
 
 initialCommands in (Compile, consoleQuick) <<= initialCommands in Compile
